@@ -2,152 +2,156 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chalked - Shared Imagination Surface</title>
+<title>Chalked - draw a mark, watch the agents answer</title>
 <style>
 * { box-sizing: border-box; margin: 0; padding: 0; }
 body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #eef0ef; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 24px; }
-.container { background: #fff; border-radius: 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.12); width: 100%; max-width: 820px; display: flex; flex-direction: column; overflow: hidden; }
-.header { padding: 16px 20px; border-bottom: 1px solid #eee; display:flex; align-items:baseline; gap:10px; }
+.container { background: #fff; border-radius: 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.12); width: 100%; max-width: 860px; overflow: hidden; }
+.header { padding: 14px 20px; border-bottom: 1px solid #eee; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
 .header h1 { font-size: 20px; color: #222; }
 .header .sub { font-size: 12px; color: #999; }
-.bar { display:flex; gap:8px; padding: 12px 20px; border-bottom: 1px solid #eee; flex-wrap:wrap; align-items:center; }
-.bar input { padding: 9px 12px; border: 1px solid #ddd; border-radius: 7px; font-size: 14px; }
-#nameInput { width: 130px; }
-#markInput { flex: 1; min-width: 180px; }
-.btn { padding: 9px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 13px; }
-.btn-add { background: #00bcd4; color: #06343a; font-weight: 600; }
-.btn-ghost { background: #f1f1f1; color: #555; border: 1px dashed #ccc; }
-.surface { position: relative; height: 460px; background: #28323a; background-image: radial-gradient(circle at 30% 20%, rgba(255,255,255,0.03), transparent 60%); overflow: hidden; cursor: crosshair; }
-.surface .hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#5b6b73; font-size:14px; text-align:center; pointer-events:none; }
-svg.wires { position:absolute; inset:0; width:100%; height:100%; pointer-events:none; z-index:0; }
-.mark { position:absolute; width:160px; background: rgba(255,255,255,0.96); border-radius:8px; padding:8px 10px; box-shadow:0 2px 8px rgba(0,0,0,0.28); z-index:1; border-left:4px solid #888; animation: pop .25s ease; }
-@keyframes pop { from { transform: scale(.85); opacity:0; } to { transform: scale(1); opacity:1; } }
-.mark .txt { font-size:13px; color:#222; line-height:1.3; word-break:break-word; }
-.mark .who { font-size:10px; color:#888; margin-top:4px; }
-.mark .x { position:absolute; top:4px; right:6px; cursor:pointer; color:#bbb; font-size:12px; }
-.mark .x:hover { color:#e74c3c; }
-.info { padding: 10px 20px; font-size: 11px; color: #888; border-top:1px solid #eee; background:#fafafa; }
-.info b { color:#00838f; }
-.swatch { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:middle; }
+.bar { display:flex; gap:8px; padding: 10px 20px; border-bottom: 1px solid #eee; align-items:center; flex-wrap:wrap; }
+.bar .tip { font-size:12px; color:#777; flex:1; min-width:200px; }
+.btn { padding: 8px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 13px; background:#f1f1f1; color:#555; border:1px dashed #ccc; }
+.btn:hover { background:#e8e8e8; }
+.wrap { position: relative; }
+canvas { display:block; width:100%; height:480px; background:#28323a; background-image: radial-gradient(circle at 28% 18%, rgba(255,255,255,0.035), transparent 60%); touch-action:none; cursor: crosshair; }
+.hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#5b6b73; font-size:15px; text-align:center; pointer-events:none; }
+.info { padding: 10px 20px; font-size: 11px; color: #888; border-top:1px solid #eee; background:#fafafa; line-height:1.5; }
+.info b { color:#00838f; } .sw { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:middle; }
 </style>
 </head>
 <body>
 <div class="container">
-<div class="header"><h1>🖍️ Chalked</h1><span class="sub">a shared surface — people hold the eraser</span></div>
+<div class="header"><h1>🖍️ Chalked</h1><span class="sub">draw a mark — the agents answer — people hold the eraser</span></div>
 <div class="bar">
-<input id="nameInput" type="text" placeholder="Your name...">
-<input id="markInput" type="text" placeholder="Write a mark, then click the board to place it (or press Add)...">
-<button class="btn btn-add" id="addBtn">Add Mark</button>
-<button class="btn btn-ghost" id="tidyBtn">🤖 agent tidies one</button>
-<button class="btn btn-ghost" id="clearBtn">Clear board</button>
+<span class="tip">Draw with your mouse to chalk a <b>cyan</b> mark. Agents reply in their own colors, answering each other to fill the board. <b>Click any mark to erase it</b> — erasing yours wipes the whole chain it spawned.</span>
+<button class="btn" id="tidyBtn">🤖 agent tidies one</button>
+<button class="btn" id="clearBtn">Clear board</button>
 </div>
-<div class="surface" id="surface"></div>
+<div class="wrap"><canvas id="c"></canvas><div class="hint" id="hint">draw a stroke with your mouse ✦</div></div>
 <div class="info">
-<span class="swatch" style="background:#00bcd4"></span> <b>Cyan = you (human)</b> — you may erase any mark.
-&nbsp;•&nbsp; Other colors = agents. Write a mark and watch <b>mock</b> agents reply geometrically, agent-to-agent
-(stubbed placeholders — <b>no real inference</b>). Agents tidy each other but can never erase your mark.
+<span class="sw" style="background:#00bcd4"></span> <b>Cyan = you (human)</b> — you may erase any mark.
+&nbsp;•&nbsp; Other colors = agents (<b>mock</b> — no real inference). Agents draw back onto the canvas and tend each
+other's marks, but can never erase yours. Delete a human stroke and its agent chain auto-deletes with it.
 </div>
 </div>
 <script>
-const STORAGE_KEY = 'chalked_marks_v2';
 const HUMAN_COLOR = '#00bcd4';
-const NOTE_W = 160;
-// Mock agents — deliberately stubbed, NOT real inference. Each has its own color.
 const MOCK_AGENTS = [
   { name: 'agent one',   color: '#aa78c8' },
   { name: 'agent two',   color: '#e9964b' },
   { name: 'agent three', color: '#5bbf6f' },
   { name: 'agent four',  color: '#e0708a' },
 ];
+const STORAGE_KEY = 'chalked_strokes_v3';
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
 let marks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
-let agentTurn = 0;
+let agentTurn = 0, W = 0, H = 0;
 const uid = () => Math.random().toString(36).slice(2, 9);
-const esc = s => String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const surfaceEl = () => document.getElementById('surface');
-function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(marks)); }
-function byId(id) { return marks.find(m => m.id === id); }
+const byId = id => marks.find(m => m.id === id);
+const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(marks));
+const centroid = m => { let x=0,y=0; for (const p of m.pts){x+=p[0];y+=p[1];} return [x/m.pts.length, y/m.pts.length]; };
 
-function render() {
-  const s = surfaceEl();
-  const wires = marks.filter(m => m.replyTo && byId(m.replyTo)).map(m => {
-    const p = byId(m.replyTo);
-    return `<line x1="${m.x+20}" y1="${m.y+14}" x2="${p.x+20}" y2="${p.y+14}" stroke="rgba(220,222,210,0.28)" stroke-width="2" stroke-dasharray="4 4"/>`;
-  }).join('');
-  const notes = marks.map(m => `
-    <div class="mark" style="left:${m.x}px; top:${m.y}px; border-left-color:${m.color}">
-      <span class="x" onclick="erase('${m.id}')" title="Erase">✕</span>
-      <div class="txt">${esc(m.text)}</div>
-      <div class="who">${esc(m.name)} ${m.isAgent ? '🤖' : '👤'}</div>
-    </div>`).join('');
-  const hint = marks.length ? '' : '<div class="hint">Type a mark above, then click anywhere on the board to place it.<br>Watch the agents reply.</div>';
-  s.innerHTML = `<svg class="wires">${wires}</svg>${notes}${hint}`;
+function fit() {
+  const dpr = window.devicePixelRatio || 1;
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  draw();
+}
+window.addEventListener('resize', fit);
+
+function strokePath(pts, color) {
+  if (!pts.length) return;
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = 3.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  ctx.shadowColor = color; ctx.shadowBlur = 7;
+  ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0], pts[i][1]);
+  ctx.stroke();
+  if (pts.length===1){ ctx.beginPath(); ctx.arc(pts[0][0],pts[0][1],2.6,0,7); ctx.fill(); }
+  ctx.shadowBlur = 0;
 }
 
-function clampX(x){ const w = surfaceEl().clientWidth;  return Math.max(8, Math.min(x, w - NOTE_W - 8)); }
-function clampY(y){ const h = surfaceEl().clientHeight; return Math.max(8, Math.min(y, h - 60)); }
-
-// HUMAN pen: a person adds a mark in cyan, at a chosen (or auto) spot.
-function addMark(x, y) {
-  const text = document.getElementById('markInput').value.trim();
-  const name = document.getElementById('nameInput').value.trim() || 'Anonymous';
-  if (!text) return;
-  if (x == null) { x = surfaceEl().clientWidth*0.18 + Math.random()*60; y = 60 + Math.random()*120; }
-  const m = { id: uid(), x: clampX(x - NOTE_W/2), y: clampY(y - 14), text, color: HUMAN_COLOR, name, isAgent: false, replyTo: null };
-  marks.push(m); save(); render();
-  document.getElementById('markInput').value = '';
-  unfold(m.id);   // the mock agents respond, geometrically
+function draw() {
+  ctx.clearRect(0,0,W,H);
+  // faint lineage connectors so the chain (and the cascade) is legible
+  ctx.setLineDash([3,6]); ctx.lineWidth = 1.4;
+  for (const m of marks) { if (m.replyTo) { const p = byId(m.replyTo); if (p){ const a=centroid(m), b=centroid(p);
+    ctx.strokeStyle='rgba(220,222,210,0.16)'; ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); } } }
+  ctx.setLineDash([]);
+  for (const m of marks) strokePath(m.pts, m.color);
+  if (cur) strokePath(cur.pts, HUMAN_COLOR);
+  document.getElementById('hint').style.display = marks.length ? 'none' : 'block';
 }
 
-// HUMAN eraser: a person may erase ANY mark.
-function erase(id) { marks = marks.filter(m => m.id !== id); save(); render(); }
+// --- agent scribble: a short procedural squiggle near the parent, fanning out ---
+function doodle(ax, ay, ang) {
+  const pts = []; let x = ax + Math.cos(ang)*46, y = ay + Math.sin(ang)*46, a = ang + (Math.random()-0.5);
+  const n = 7 + (Math.random()*6|0);
+  for (let i=0;i<n;i++){ pts.push([x,y]); a += (Math.random()-0.5)*1.3; const step = 8+Math.random()*7; x += Math.cos(a)*step; y += Math.sin(a)*step; }
+  return pts;
+}
+function inBounds(pts){ return pts.every(p => p[0]>10 && p[0]<W-10 && p[1]>10 && p[1]<H-10); }
 
-// AGENT eraser: an agent may erase ONLY another agent's mark, NEVER a human's.
-window.agentErase = function(id) {
-  const m = byId(id);
-  if (!m) return false;
-  if (!m.isAgent) { console.warn('Refused: an agent may not erase a human mark.'); return false; }
-  marks = marks.filter(x => x.id !== id); save(); render(); return true;
-};
-
-// One mock agent replies, placed geometrically NEXT TO the mark it answers.
-function agentReply(parentId, fanIndex) {
-  const p = byId(parentId);
-  if (!p) return null;
-  const a = MOCK_AGENTS[agentTurn++ % MOCK_AGENTS.length];
-  const pcx = p.x + NOTE_W/2, pcy = p.y + 14;
-  const ang = (-35 + fanIndex*40 + (Math.random()*20-10)) * Math.PI/180;  // fan outward
-  const dist = 150 + Math.random()*30;
-  const x = clampX(pcx + Math.cos(ang)*dist - NOTE_W/2);
-  const y = clampY(pcy + Math.sin(ang)*dist - 14);
-  const m = { id: uid(), x, y, text: '🤖 ' + a.name + ' output', color: a.color, name: a.name, isAgent: true, replyTo: parentId };
-  marks.push(m); save(); render();
+function agentDraw(parentId, depth) {
+  const p = byId(parentId); if (!p) return null;
+  const c = centroid(p);
+  const ag = MOCK_AGENTS[agentTurn++ % MOCK_AGENTS.length];
+  let pts;
+  for (let tries=0; tries<6; tries++){ const ang = Math.random()*Math.PI*2; const d = doodle(c[0], c[1], ang); if (inBounds(d)){ pts = d; break; } pts = d; }
+  const m = { id: uid(), pts, color: ag.color, name: ag.name, isAgent: true, replyTo: parentId };
+  marks.push(m); save(); draw();
   return m.id;
 }
 
-// The unfolding: a human mark -> agent one replies to it -> agent two replies to
-// agent one -> agent three replies to agent two. Agents answering each other, in space.
-function unfold(humanId) {
-  setTimeout(() => { const a1 = agentReply(humanId, 0); if (!a1) return;
-    setTimeout(() => { const a2 = agentReply(a1, 1); if (!a2) return;
-      setTimeout(() => { agentReply(a2, 2); }, 850);
-    }, 850);
-  }, 650);
+// grow a bounded tree of agent replies off a root — agents answering each other
+function grow(parentId, depth, budget) {
+  if (depth >= 4 || budget.n <= 0) return;
+  setTimeout(() => {
+    if (!byId(parentId)) return;            // parent erased mid-unfold -> stop this branch
+    const child = agentDraw(parentId, depth); budget.n--;
+    if (!child) return;
+    grow(child, depth+1, budget);                                    // continue the chain
+    if (Math.random() < 0.55 && budget.n > 0) grow(parentId, depth+1, budget); // sometimes branch
+  }, 480 + Math.random()*420);
+}
+function unfold(rootId) { grow(rootId, 0, { n: 7 }); }
+
+// AGENT eraser API: may erase ONLY another agent's mark, never a human's.
+window.agentErase = function(id){ const m=byId(id); if(!m) return false; if(!m.isAgent){ console.warn('Refused: an agent may not erase a human mark.'); return false; } deleteSubtree(id); return true; };
+
+// delete a mark AND every reply descended from it (the cascade)
+function deleteSubtree(id) {
+  const kill = new Set([id]); let grew = true;
+  while (grew){ grew = false; for (const m of marks){ if (m.replyTo && kill.has(m.replyTo) && !kill.has(m.id)){ kill.add(m.id); grew = true; } } }
+  marks = marks.filter(m => !kill.has(m.id)); save(); draw();
+}
+function deleteAt(x, y) {
+  let best=null, bd=16;
+  for (const m of marks) for (const p of m.pts){ const d=Math.hypot(p[0]-x,p[1]-y); if (d<bd){ bd=d; best=m.id; } }
+  if (best) deleteSubtree(best);
 }
 
-function agentTidy() { const m = [...marks].reverse().find(x => x.isAgent); if (m) window.agentErase(m.id); }
-
-// --- wiring ---
-surfaceEl().addEventListener('click', e => {
-  if (!document.getElementById('markInput').value.trim()) return;  // need text to place
-  const r = surfaceEl().getBoundingClientRect();
-  addMark(e.clientX - r.left, e.clientY - r.top);
+// --- mouse drawing ---
+let cur=null, moved=0;
+const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX-r.left, e.clientY-r.top]; };
+cv.addEventListener('pointerdown', e => { cur={pts:[pos(e)]}; moved=0; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove', e => { if(!cur) return; const p=pos(e); const last=cur.pts[cur.pts.length-1]; const d=Math.hypot(p[0]-last[0],p[1]-last[1]); if(d<1.5) return; cur.pts.push(p); moved+=d; draw(); });
+cv.addEventListener('pointerup', e => {
+  if (!cur) return; const pts = cur.pts; cur = null;
+  if (moved < 8 && pts.length < 4) { deleteAt(pts[0][0], pts[0][1]); return; }   // a click = erase
+  const m = { id: uid(), pts, color: HUMAN_COLOR, name:'you', isAgent:false, replyTo:null };
+  marks.push(m); save(); draw(); unfold(m.id);                                    // a stroke = draw + answer
 });
-document.getElementById('addBtn').addEventListener('click', () => addMark());
-document.getElementById('markInput').addEventListener('keypress', e => { if (e.key === 'Enter') addMark(); });
-document.getElementById('tidyBtn').addEventListener('click', agentTidy);
-document.getElementById('clearBtn').addEventListener('click', () => { marks = []; agentTurn = 0; save(); render(); });
+cv.addEventListener('pointercancel', () => { cur=null; draw(); });
 
-render();
+document.getElementById('tidyBtn').addEventListener('click', () => { const m=[...marks].reverse().find(x=>x.isAgent); if(m) deleteSubtree(m.id); });
+document.getElementById('clearBtn').addEventListener('click', () => { marks=[]; agentTurn=0; save(); draw(); });
+
+fit();
 </script>
 </body>
 </html>
