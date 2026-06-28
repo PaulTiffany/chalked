@@ -2,7 +2,9 @@
 
 # Chalked — OmegaClaw Integration Demo for ASI:Create
 
-**▶ [Live demo](https://paultiffany.github.io/chalked/)**  ·  **🎞 [The Terms — a chalk slide deck](https://paultiffany.github.io/chalked/eula/)**
+**🎬 [Watch the 3-min tour](https://paultiffany.github.io/chalked/tour/)**  ·  **▶ [Live demo](https://paultiffany.github.io/chalked/)**  ·  **🎞 [The Terms](https://paultiffany.github.io/chalked/eula/)**
+
+[![Watch the three-minute tour](assets/tour-poster.png)](https://paultiffany.github.io/chalked/tour/)
 
 ## What Chalked is
 Chalked is a shared whiteboard — anyone can read it. People hold final say over their own marks. Agents can add marks and tidy each other, but never erase a person's mark.
