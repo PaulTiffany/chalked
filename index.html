@@ -25,15 +25,16 @@ canvas { display:block; width:100%; height:480px; background:#28323a; background
 <div class="container">
 <div class="header"><h1>🖍️ Chalked</h1><span class="sub">draw a mark — the agents answer — people hold the eraser</span></div>
 <div class="bar">
-<span class="tip">Draw with your mouse to chalk a <b>cyan</b> mark. Agents reply in their own colors, answering each other to fill the board. <b>Click any mark to erase it</b> — erasing yours wipes the whole chain it spawned.</span>
+<span class="tip">Draw <b>cyan</b> marks with your mouse. Agents reply in their colors and <b>weave between several of your marks</b>. <b>Click any mark to erase it</b> — an agent poofs if <i>any</i> mark it depends on is erased.</span>
 <button class="btn" id="tidyBtn">🤖 agent tidies one</button>
 <button class="btn" id="clearBtn">Clear board</button>
 </div>
 <div class="wrap"><canvas id="c"></canvas><div class="hint" id="hint">draw a stroke with your mouse ✦</div></div>
 <div class="info">
 <span class="sw" style="background:#00bcd4"></span> <b>Cyan = you (human)</b> — you may erase any mark.
-&nbsp;•&nbsp; Other colors = agents (<b>mock</b> — no real inference). Agents draw back onto the canvas and tend each
-other's marks, but can never erase yours. Delete a human stroke and its agent chain auto-deletes with it.
+&nbsp;•&nbsp; Other colors = agents (<b>mock</b> — no real inference). An agent can depend on <b>several</b> marks and
+draws itself between them; if <b>any</b> dependency is erased, the agent poofs — and so does anything built on it.
+Agents tend each other but can never erase your mark.
 </div>
 </div>
 <script>
@@ -44,7 +45,7 @@ const MOCK_AGENTS = [
   { name: 'agent three', color: '#5bbf6f' },
   { name: 'agent four',  color: '#e0708a' },
 ];
-const STORAGE_KEY = 'chalked_strokes_v3';
+const STORAGE_KEY = 'chalked_strokes_v4';
 const cv = document.getElementById('c');
 const ctx = cv.getContext('2d');
 let marks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
@@ -77,62 +78,81 @@ function strokePath(pts, color) {
 
 function draw() {
   ctx.clearRect(0,0,W,H);
-  // faint lineage connectors so the chain (and the cascade) is legible
+  // dependency lines — every link an agent leans on (the cascade made visible)
   ctx.setLineDash([3,6]); ctx.lineWidth = 1.4;
-  for (const m of marks) { if (m.replyTo) { const p = byId(m.replyTo); if (p){ const a=centroid(m), b=centroid(p);
-    ctx.strokeStyle='rgba(220,222,210,0.16)'; ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); } } }
+  for (const m of marks) if (m.deps) for (const dep of m.deps) { const p = byId(dep); if (p){
+    const a=centroid(m), b=centroid(p);
+    ctx.strokeStyle = 'rgba(220,222,210,0.16)'; ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); } }
   ctx.setLineDash([]);
   for (const m of marks) strokePath(m.pts, m.color);
   if (cur) strokePath(cur.pts, HUMAN_COLOR);
   document.getElementById('hint').style.display = marks.length ? 'none' : 'block';
 }
 
-// --- agent scribble: a short procedural squiggle near the parent, fanning out ---
+// --- agent scribble: a short procedural squiggle, fanning from a point ---
 function doodle(ax, ay, ang) {
-  const pts = []; let x = ax + Math.cos(ang)*46, y = ay + Math.sin(ang)*46, a = ang + (Math.random()-0.5);
+  const pts = []; let x = ax + Math.cos(ang)*44, y = ay + Math.sin(ang)*44, a = ang + (Math.random()-0.5);
   const n = 7 + (Math.random()*6|0);
   for (let i=0;i<n;i++){ pts.push([x,y]); a += (Math.random()-0.5)*1.3; const step = 8+Math.random()*7; x += Math.cos(a)*step; y += Math.sin(a)*step; }
   return pts;
 }
-function inBounds(pts){ return pts.every(p => p[0]>10 && p[0]<W-10 && p[1]>10 && p[1]<H-10); }
+const inBounds = pts => pts.every(p => p[0]>10 && p[0]<W-10 && p[1]>10 && p[1]<H-10);
 
-function agentDraw(parentId, depth) {
-  const p = byId(parentId); if (!p) return null;
-  const c = centroid(p);
+// an agent that DEPENDS ON a set of marks, drawn between them
+function agentDraw(deps) {
+  deps = deps.filter(byId);
+  if (!deps.length) return null;
+  const cs = deps.map(id => centroid(byId(id)));
+  const ax = cs.reduce((s,c)=>s+c[0],0)/cs.length, ay = cs.reduce((s,c)=>s+c[1],0)/cs.length;
   const ag = MOCK_AGENTS[agentTurn++ % MOCK_AGENTS.length];
   let pts;
-  for (let tries=0; tries<6; tries++){ const ang = Math.random()*Math.PI*2; const d = doodle(c[0], c[1], ang); if (inBounds(d)){ pts = d; break; } pts = d; }
-  const m = { id: uid(), pts, color: ag.color, name: ag.name, isAgent: true, replyTo: parentId };
+  const jitter = deps.length>1 ? 26 : 0;   // multi-dep agents sit between their inputs
+  for (let t=0;t<6;t++){ const d = doodle(ax + (Math.random()*2-1)*jitter, ay + (Math.random()*2-1)*jitter, Math.random()*Math.PI*2); pts = d; if (inBounds(d)) break; }
+  const m = { id: uid(), pts, color: ag.color, name: ag.name, isAgent: true, deps: [...deps] };
   marks.push(m); save(); draw();
   return m.id;
 }
 
-// grow a bounded tree of agent replies off a root — agents answering each other
+// pick a second dependency to weave across — prefer another human mark
+function pickCrossDep(parentId, exclude) {
+  const cands = marks.filter(m => m.id !== parentId && !exclude.includes(m.id));
+  if (!cands.length) return null;
+  const humans = cands.filter(m => !m.isAgent);
+  const pool = (humans.length && Math.random() < 0.85) ? humans : cands;
+  return pool[Math.floor(Math.random()*pool.length)].id;
+}
+
+// grow a bounded web of agent replies off a mark; agents may also reach to other marks
 function grow(parentId, depth, budget) {
   if (depth >= 4 || budget.n <= 0) return;
   setTimeout(() => {
-    if (!byId(parentId)) return;            // parent erased mid-unfold -> stop this branch
-    const child = agentDraw(parentId, depth); budget.n--;
+    if (!byId(parentId)) return;                 // dependency gone -> this branch stops
+    const deps = [parentId];
+    if (Math.random() < 0.5) { const x = pickCrossDep(parentId, deps); if (x) deps.push(x); }
+    const child = agentDraw(deps); budget.n--;
     if (!child) return;
-    grow(child, depth+1, budget);                                    // continue the chain
-    if (Math.random() < 0.55 && budget.n > 0) grow(parentId, depth+1, budget); // sometimes branch
+    grow(child, depth+1, budget);                                     // continue the chain
+    if (Math.random() < 0.5 && budget.n > 0) grow(parentId, depth+1, budget);  // sometimes branch
   }, 480 + Math.random()*420);
 }
 function unfold(rootId) { grow(rootId, 0, { n: 7 }); }
 
-// AGENT eraser API: may erase ONLY another agent's mark, never a human's.
-window.agentErase = function(id){ const m=byId(id); if(!m) return false; if(!m.isAgent){ console.warn('Refused: an agent may not erase a human mark.'); return false; } deleteSubtree(id); return true; };
+// AGENT eraser API: may erase ONLY an agent mark, never a human's.
+window.agentErase = function(id){ const m=byId(id); if(!m) return false; if(!m.isAgent){ console.warn('Refused: an agent may not erase a human mark.'); return false; } cascade(id); return true; };
 
-// delete a mark AND every reply descended from it (the cascade)
-function deleteSubtree(id) {
+// THE CASCADE: remove a mark, and remove anything that depends on it — directly OR
+// transitively. An agent poofs if ANY dependency poofs. This is the control interface.
+function cascade(id) {
   const kill = new Set([id]); let grew = true;
-  while (grew){ grew = false; for (const m of marks){ if (m.replyTo && kill.has(m.replyTo) && !kill.has(m.id)){ kill.add(m.id); grew = true; } } }
+  while (grew) { grew = false;
+    for (const m of marks) { if (kill.has(m.id)) continue;
+      if (m.deps && m.deps.some(d => kill.has(d))) { kill.add(m.id); grew = true; } } }
   marks = marks.filter(m => !kill.has(m.id)); save(); draw();
 }
 function deleteAt(x, y) {
   let best=null, bd=16;
   for (const m of marks) for (const p of m.pts){ const d=Math.hypot(p[0]-x,p[1]-y); if (d<bd){ bd=d; best=m.id; } }
-  if (best) deleteSubtree(best);
+  if (best) cascade(best);
 }
 
 // --- mouse drawing ---
@@ -143,12 +163,12 @@ cv.addEventListener('pointermove', e => { if(!cur) return; const p=pos(e); const
 cv.addEventListener('pointerup', e => {
   if (!cur) return; const pts = cur.pts; cur = null;
   if (moved < 8 && pts.length < 4) { deleteAt(pts[0][0], pts[0][1]); return; }   // a click = erase
-  const m = { id: uid(), pts, color: HUMAN_COLOR, name:'you', isAgent:false, replyTo:null };
+  const m = { id: uid(), pts, color: HUMAN_COLOR, name:'you', isAgent:false, deps:[] };
   marks.push(m); save(); draw(); unfold(m.id);                                    // a stroke = draw + answer
 });
 cv.addEventListener('pointercancel', () => { cur=null; draw(); });
 
-document.getElementById('tidyBtn').addEventListener('click', () => { const m=[...marks].reverse().find(x=>x.isAgent); if(m) deleteSubtree(m.id); });
+document.getElementById('tidyBtn').addEventListener('click', () => { const m=[...marks].reverse().find(x=>x.isAgent); if(m) cascade(m.id); });
 document.getElementById('clearBtn').addEventListener('click', () => { marks=[]; agentTurn=0; save(); draw(); });
 
 fit();
