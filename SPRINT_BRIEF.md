@@ -1,3 +1,5 @@
+![The Map — R0 to R4, least risk first](assets/banner-brief.png)
+
 # Chalked - Sprint Brief: What We Want (hardened)
 
 ## North star

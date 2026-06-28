@@ -1,3 +1,5 @@
+![Chalked — a shared surface where people hold the eraser](assets/chalked-hero.png)
+
 # Chalked — OmegaClaw Integration Demo for ASI:Create
 
 ## What Chalked is

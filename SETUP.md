@@ -1,3 +1,5 @@
+![Setup — open it in a browser](assets/banner-setup.png)
+
 # Chalked — Setup
 
 ## How to Run

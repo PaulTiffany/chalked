@@ -1,3 +1,5 @@
+![Architecture — how the surface holds the contract](assets/banner-spec.png)
+
 # Chalked Architecture Specification
 
 ## Overview

@@ -1,3 +1,5 @@
+![The Terms — the eraser stays with people](assets/banner-eula.png)
+
 Shared Whiteboard EULA
 1. Anyone can read the board - it is open to all.
 2. People own their marks. A person may erase any mark on the board.
