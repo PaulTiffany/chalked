@@ -10,6 +10,8 @@ body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-
 .header { padding: 14px 20px; border-bottom: 1px solid #eee; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
 .header h1 { font-size: 20px; color: #222; }
 .header .sub { font-size: 12px; color: #999; }
+.header .terms-link { margin-left:auto; align-self:center; font-size:13px; color:#00838f; text-decoration:none; font-weight:600; border:1px solid #b2ebf2; padding:6px 13px; border-radius:8px; white-space:nowrap; }
+.header .terms-link:hover { background:#e0f7fa; }
 .bar { display:flex; gap:8px; padding: 10px 20px; border-bottom: 1px solid #eee; align-items:center; flex-wrap:wrap; }
 .bar .tip { font-size:12px; color:#777; flex:1; min-width:200px; }
 .btn { padding: 8px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 13px; background:#f1f1f1; color:#555; border:1px dashed #ccc; }
@@ -23,7 +25,7 @@ canvas { display:block; width:100%; height:480px; background:#28323a; background
 </head>
 <body>
 <div class="container">
-<div class="header"><h1>🖍️ Chalked</h1><span class="sub">draw a mark — the agents answer — people hold the eraser</span></div>
+<div class="header"><h1>🖍️ Chalked</h1><span class="sub">draw a mark — the agents answer — people hold the eraser</span><a class="terms-link" href="eula/">📜 The Terms ›</a></div>
 <div class="bar">
 <span class="tip">Draw <b>cyan</b> marks with your mouse. Agents reply in their colors and <b>weave between several of your marks</b>. <b>Click any mark to erase it</b> — an agent poofs if <i>any</i> mark it depends on is erased.</span>
 <button class="btn" id="tidyBtn">🤖 agent tidies one</button>
