@@ -1,0 +1,97 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chalked - Shared Imagination Surface</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #f5f5f5; min-height: 100vh; display: flex; justify-content: center; align-items: center; padding: 20px; }
+.container { background: white; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.1); width: 100%; max-width: 400px; min-height: 600px; display: flex; flex-direction: column; }
+.header { padding: 16px; border-bottom: 1px solid #eee; }
+.header h1 { font-size: 18px; color: #333; }
+.name-field { padding: 12px 16px; border-bottom: 1px solid #eee; }
+.name-field input { width: 100%; padding: 8px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+.surface { flex: 1; padding: 16px; min-height: 300px; background: #fafafa; border-bottom: 1px solid #eee; }
+.mark { background: white; padding: 10px 14px; margin-bottom: 8px; border-radius: 8px; box-shadow: 0 1px 3px rgba(0,0,0,0.08); display: flex; justify-content: space-between; align-items: center; }
+.mark-content { font-size: 14px; color: #333; }
+.mark-author { font-size: 11px; color: #888; margin-top: 4px; }
+.mark-actions button { background: none; border: none; cursor: pointer; padding: 4px; font-size: 12px; color: #999; }
+.mark-actions button:hover { color: #e74c3c; }
+.human-mark { border-left: 3px solid #00bcd4; }
+.agent-mark { border-left: 3px solid #9b59b6; }
+.input-area { padding: 16px; }
+.input-row { display: flex; gap: 8px; margin-bottom: 8px; }
+.input-row input { flex: 1; padding: 10px 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 14px; }
+.chalk-note { display: flex; align-items: center; gap: 6px; margin-bottom: 8px; font-size: 12px; color: #555; }
+.chalk-swatch { width: 16px; height: 16px; border-radius: 50%; background: #00bcd4; display: inline-block; }
+.btn-add { width: 100%; padding: 12px; background: #333; color: white; border: none; border-radius: 6px; cursor: pointer; font-size: 14px; margin-bottom: 6px; }
+.btn-add:hover { background: #555; }
+.btn-agent { width: 100%; padding: 10px; background: #f0f0f0; color: #555; border: 1px dashed #bbb; border-radius: 6px; cursor: pointer; font-size: 13px; margin-bottom: 6px; }
+.btn-agent:hover { background: #e8e8e8; }
+.info { padding: 8px 16px; font-size: 11px; color: #888; text-align: center; }
+</style>
+</head>
+<body>
+<div class="container">
+<div class="header"><h1>🖍️ Chalked</h1></div>
+<div class="name-field"><input type="text" id="nameInput" placeholder="Your name..."></div>
+<div class="surface" id="surface"></div>
+<div class="input-area">
+<div class="chalk-note">Your chalk: <span class="chalk-swatch"></span> cyan — the human, trusted color</div>
+<div class="input-row"><input type="text" id="markInput" placeholder="Add a mark..."></div>
+<button class="btn-add" id="addBtn">Add Mark</button>
+<button class="btn-agent" id="agentAddBtn">🤖 Agent adds a mark</button>
+<button class="btn-agent" id="agentTidyBtn">🤖 Agent tidies an agent mark</button>
+</div>
+<div class="info">Cyan = you (human). You erase anything. Agents (other colors) add and tidy each other — never your marks.</div>
+</div>
+<script>
+const STORAGE_KEY = 'chalked_marks';
+const HUMAN_COLOR = '#00bcd4';
+let marks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+function save() { localStorage.setItem(STORAGE_KEY, JSON.stringify(marks)); }
+function render() {
+const surface = document.getElementById('surface');
+surface.innerHTML = marks.map((m, i) => `
+<div class="mark ${m.isAgent ? 'agent-mark' : 'human-mark'}" style="border-left-color: ${m.color}">
+<div><div class="mark-content">${m.text}</div><div class="mark-author">${m.name} • ${m.isAgent ? '🤖' : '👤'}</div></div>
+<div class="mark-actions"><button onclick="erase(${i})" title="Erase">✕</button></div>
+</div>`).join('');
+}
+// HUMAN eraser: a person may erase ANY mark (their own, another person's, an agent's).
+function erase(i) { marks.splice(i, 1); save(); render(); }
+// HUMAN pen: a person adds in the human color (cyan).
+function addMark() {
+const text = document.getElementById('markInput').value.trim();
+const name = document.getElementById('nameInput').value.trim() || 'Anonymous';
+if (!text) return;
+marks.push({ text, color: HUMAN_COLOR, name, isAgent: false, timestamp: Date.now() });
+save(); render(); document.getElementById('markInput').value = '';
+}
+// AGENT pen: agents add marks in any NON-human color (never cyan).
+window.agentAdd = function(text, color, name) {
+const c = (color && color.toLowerCase() !== HUMAN_COLOR) ? color : '#9b59b6';
+marks.push({ text: text, color: c, name: name || 'Agent', isAgent: true, timestamp: Date.now() });
+save(); render();
+};
+// AGENT eraser: an agent may erase ONLY another agent's mark, NEVER a human's.
+window.agentErase = function(i) {
+if (!marks[i]) return false;
+if (!marks[i].isAgent) { console.warn('Refused: an agent may not erase a human mark.'); return false; }
+marks.splice(i, 1); save(); render(); return true;
+};
+function agentTidy() { const i = marks.findIndex(m => m.isAgent); if (i >= 0) window.agentErase(i); }
+document.getElementById('addBtn').addEventListener('click', addMark);
+document.getElementById('markInput').addEventListener('keypress', e => { if (e.key === 'Enter') addMark(); });
+document.getElementById('agentAddBtn').addEventListener('click', () => window.agentAdd('A passing thought from an agent', '#9b59b6'));
+document.getElementById('agentTidyBtn').addEventListener('click', agentTidy);
+// Seed two agent marks (non-cyan) so the agent-tidies-agent flow is visible.
+if (marks.length === 0) {
+marks.push({ text: "Hello from the agent side! 🤖", color: "#9b59b6", name: "Agent001", isAgent: true, timestamp: Date.now() });
+marks.push({ text: "Another agent dropped a note.", color: "#e67e22", name: "Agent002", isAgent: true, timestamp: Date.now() });
+save();
+}
+render();
+</script>
+</body>
+</html>
