@@ -2,6 +2,14 @@
 
 A full-song, 4:10 browser music video synchronized to [Suno Version 2](https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f), developed as an **isolated subfolder** of Chalked.
 
+## Original source documents (preserved)
+
+**David's video:** [realignment-loop discussion](https://www.youtube.com/watch?v=n9_EsXZAQoQ), adapted from the creator-supplied timestamped transcript. Its claims are explicitly separated from the creators' Chalked interpretations, with video-side links in [SOURCE_PEDIGREE.md](SOURCE_PEDIGREE.md).
+
+**Creator-supplied, non-accepted extended abstract:** [**Chalked — original four-page PDF (July 24, 2026)**](Chalked_extended_abstract_2026-07-24.pdf). This exact creator-provided file is archived unchanged (SHA-256 `d716a91d1a7c582ecd52c43369a86913e633c7b59e3c794f5ae777a14a445804`). The **non-accepted** characterization is creator-reported; we have not independently obtained a rejection notice. **Important edition distinction:** this July 24 *Chalked* revision is not the June 26 submission binary, which bore the title *Signposts of Shared Imagination*. Both are distinguished in [the source pedigree](SOURCE_PEDIGREE.md), including the actual June 26 submission receipt and the different known file hashes.
+
+**Local release evidence:** [MEDIA_RECEIPT.json](MEDIA_RECEIPT.json) records SHA-256 and ffprobe streams for the actual creator-provided Suno V2 MP3 and both V7 conversation-exported videos. The videos and soundtrack are *not* committed to the public repository, and a sound-on V7 export from this exact R0 PR is still unqualified.
+
 ## Creator credits and production provenance
 
 **Created and directed by Paul Carver Tiffany III, with ChatGPT 6 (OpenAI) as creative and technical collaborator.** Original recorded music: [Suno Version 2](https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f). Inspired by [David's realignment-loop discourse](https://www.youtube.com/watch?v=n9_EsXZAQoQ) and Tiffany's June 26, 2026 AGI-26 *Signposts of Shared Imagination* extended abstract, including the drawing board's relationship to trust, autonomy, revision authority and evitability.
