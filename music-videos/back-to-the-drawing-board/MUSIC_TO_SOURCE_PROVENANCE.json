@@ -1,0 +1,174 @@
+{
+  "schema": "chalked-back-to-the-drawing-board-source-links/1",
+  "as_of": "2026-11-13",
+  "song": {
+    "title": "Back to the Drawing Board",
+    "suno_version": 2,
+    "suno_id": "d46935d4-76c7-457f-8a28-a853df08039f",
+    "url": "https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f",
+    "duration_s": 249.8
+  },
+  "references": {
+    "david": {
+      "label": "David's realignment-loop YouTube discussion",
+      "url": "https://www.youtube.com/watch?v=n9_EsXZAQoQ",
+      "timestamp_source": "User-provided timed transcript, not independently verified verbatim against video; ranges approximate."
+    },
+    "chalked": {
+      "creator": "Paul C. Tiffany III",
+      "title": "Signposts of Shared Imagination: Permissions, Addressivity, and the Access–Phenomenal Boundary",
+      "kind": "AGI-26 Artificial Phenomenology Track extended abstract",
+      "submitted": "2026-06-26",
+      "status": "Position / work in progress; not independent proof of phenomenal consciousness"
+    },
+    "ikigai": {
+      "label": "Ikigai Collective contribution reported by creator",
+      "date": "2026-11-12",
+      "theme": "Returning to the drawing board in relation to trust and autonomy",
+      "verified_transcript": false
+    }
+  },
+  "notes": [
+    "Suno times refer to the recorded song, not to David's talk.",
+    "Ranges are creative correspondences, not quotes or direct endorsements. Chalked ideas are distinguished from David's discourse.",
+    "The line ledger scene_pedigree_v5.csv contains 85 primary sequential windows; timing_v2.json retains all 94 machine-detected line cues and 568 word entries.",
+    "The English/Italian SALE visual is the video maker's invented illustrative example, not something attributed to David."
+  ],
+  "links": [
+    {
+      "song_start_s": 5.06,
+      "song_end_s": 28.97,
+      "lyric": "You said yes / I said yes / Same word, different worlds",
+      "source": "David",
+      "source_time": "0:04–1:04",
+      "source_theme": "Same instructions or agreement can mask different priorities.",
+      "relation": "Adapted opening situation; the globe and English SALE/Italian sale imagery are original artistic examples."
+    },
+    {
+      "song_start_s": 28.97,
+      "song_end_s": 43.17,
+      "lyric": "I was racing for the finish / You were asking who's affected",
+      "source": "David",
+      "source_time": "0:38–1:04",
+      "source_theme": "Speed/efficiency compared with consultation and who bears consequences.",
+      "relation": "Close conceptual paraphrase in the song; no direct quote asserted."
+    },
+    {
+      "song_start_s": 43.17,
+      "song_end_s": 60.06,
+      "lyric": "Not a failure of the language / Just a choice we hadn't made",
+      "source": "David",
+      "source_time": "0:58–1:04",
+      "source_theme": "Genuine priorities disagreement rather than simple misunderstanding.",
+      "relation": "Artistically rephrased distinction."
+    },
+    {
+      "song_start_s": 60.06,
+      "song_end_s": 71.8,
+      "lyric": "Back to the drawing board / Trust is giving room to move",
+      "source": "Chalked §4 + Ikigai creator report",
+      "source_time": null,
+      "source_theme": "Reopen deliberation and retain genuine delegated autonomy while making revisions possible.",
+      "relation": "Creator's theoretical synthesis; not presented as David's statement."
+    },
+    {
+      "song_start_s": 71.8,
+      "song_end_s": 83.79,
+      "lyric": "How soon do we know we're drifting? / Who can change what happens next? / Who holds the eraser?",
+      "source": "David + Chalked §§1,4",
+      "source_time": "2:17–3:23",
+      "source_theme": "Detection latency and meaningful intervention authority; erase/revision rights.",
+      "relation": "Two distinct intellectual sources brought into dialogue."
+    },
+    {
+      "song_start_s": 91.73,
+      "song_end_s": 105.95,
+      "lyric": "Your compass isn't my compass / Still our roads can share a mile",
+      "source": "David",
+      "source_time": "1:11–1:44",
+      "source_theme": "Partially overlapping values can still permit bounded cooperation.",
+      "relation": "Original metaphor developed from the discussion."
+    },
+    {
+      "song_start_s": 105.95,
+      "song_end_s": 113.79,
+      "lyric": "Everyone can read the signpost / Not everyone is who it's for",
+      "source": "Chalked §§1–2",
+      "source_time": null,
+      "source_theme": "Read permission and addressivity do not coincide; reader is not always intended addressee.",
+      "relation": "Directly grounded in creator's submitted theoretical framework."
+    },
+    {
+      "song_start_s": 113.79,
+      "song_end_s": 122.86,
+      "lyric": "Tomorrow brings a different world / A warning isn't power",
+      "source": "David + Chalked §4",
+      "source_time": "2:35–3:23",
+      "source_theme": "The plan/goal can change; alerting does not grant standing to intervene.",
+      "relation": "Integrated paraphrase."
+    },
+    {
+      "song_start_s": 122.86,
+      "song_end_s": 146.37,
+      "lyric": "Back to the drawing board / Call the whole room in / Who holds the eraser?",
+      "source": "David + Chalked §4 + Ikigai creator report",
+      "source_time": "2:25–3:23",
+      "source_theme": "Realignment is a social feedback/governance loop; return to the forum and restore evitability.",
+      "relation": "Synthesized chorus, not endorsement."
+    },
+    {
+      "song_start_s": 146.37,
+      "song_end_s": 161.71,
+      "lyric": "Two agents checked the sent mail ... / Till we checked it with the record",
+      "source": "David",
+      "source_time": "3:24–4:27",
+      "source_theme": "A mistaken open-decision assumption arose from checking sent mail while overlooking another record; error propagated into a morning plan.",
+      "relation": "Retains recognizable anecdote; animation elaborates it with archive and handoff sketches."
+    },
+    {
+      "song_start_s": 161.71,
+      "song_end_s": 174.63,
+      "lyric": "Faster, faster ... / You can name a human captain",
+      "source": "David + Chalked §4",
+      "source_time": "4:43–5:39",
+      "source_theme": "AIs may revise and act faster than humans can evaluate; a nominal supervisor may have little actionable control; board as communication-rate governor.",
+      "relation": "David supplies speed-asymmetry challenge; Chalked supplies governor metaphor."
+    },
+    {
+      "song_start_s": 174.63,
+      "song_end_s": 188.66,
+      "lyric": "What does being in charge mean here? / Who can read it? / Who can write it? / Who can stop it?",
+      "source": "David + Chalked §§1,2,4",
+      "source_time": "2:53–3:23; 5:02–5:39",
+      "source_theme": "Authority to intervene vs read/write/erase permissions and legitimate forum.",
+      "relation": "Original call-and-response synthesis."
+    },
+    {
+      "song_start_s": 188.66,
+      "song_end_s": 202.6,
+      "lyric": "No promise we can solve tomorrow / But we can count the time to notice",
+      "source": "David",
+      "source_time": "5:48–6:45",
+      "source_theme": "Study correction capabilities now, without asserting this solves future superintelligence alignment.",
+      "relation": "Explicitly bounded conclusion."
+    },
+    {
+      "song_start_s": 202.6,
+      "song_end_s": 225.52,
+      "lyric": "Back to the drawing board / Trust is giving room to move",
+      "source": "Chalked §4 + Ikigai creator report + David conclusion",
+      "source_time": "6:45–7:09",
+      "source_theme": "Retain meaningful agency by reopening decisions while alternatives remain; preserve cooperation through revision.",
+      "relation": "Creator's normative response to David."
+    },
+    {
+      "song_start_s": 225.52,
+      "song_end_s": 249.8,
+      "lyric": "You said yes / I said yes / We can trust and change the plan",
+      "source": "Original song reprise + Chalked §4",
+      "source_time": null,
+      "source_theme": "Return to a similar surface with altered choices and preserved trust.",
+      "relation": "Original lyrical resolution, not quoted from source."
+    }
+  ]
+}
