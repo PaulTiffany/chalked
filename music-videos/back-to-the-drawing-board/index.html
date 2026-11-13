@@ -198,7 +198,7 @@ function T(s,x,y,size=52,c=VW){f.save();f.textAlign='center';f.textBaseline='mid
 function P(x,y,t,c=VH,z=1){f.save();f.translate(x,y);f.scale(z,z);O(0,-58,17,c);L(0,-40,0,20,c,6);let v=Math.sin(t*3)*20;L(0,-20,-32,v,c,5);L(0,-20,32,-v,c,5);L(0,20,-24,63+v,c,5);L(0,20,24,63-v,c,5);f.restore()}
 function K(x,y,t,fast=false){O(x,y,93,'#f5c57a');L(x,y,x+Math.cos(t*(fast?8:.35))*72,y+Math.sin(t*(fast?8:.35))*72,VC[0],7)}
 function E(x,y){f.fillStyle='#e4dcc9';f.fillRect(x-55,y-22,110,44);f.fillStyle='#8b633e';f.fillRect(x-55,y-22,110,14)}
-function H(t){
+function nativeScore(t){
  const a=[],put=(id,pts,color,isAgent,deps=[])=>a.push({id,pts,color,isAgent,deps});
  if(t>=146&&t<162){put('human',[[84,180],[117,215],[150,180]],HUMAN_COLOR,false);
   if(t>149)put('assumption',[[170,230],[204,207],[235,236]],VC[0],true,['human']);
@@ -229,7 +229,7 @@ function A(t){
  f.fillStyle=VH;f.fillRect(48,688,1184*t/END,3);
  hero.style.opacity=t<24?Math.max(0,(24-t)/24)*.2:t>236?Math.min(.38,(t-236)/20):0;
 }
-window.renderAt=t=>{t=Math.max(0,Math.min(END,t));H(t);A(t)};
+window.renderAt=t=>{t=Math.max(0,Math.min(END,t));nativeScore(t);A(t)};
 let position=0,playing=false,lastTime=0;
 function tick(ms){if(playing){if(!song.paused&&song.readyState)position=song.currentTime;else position+=Math.max(0,Math.min(.06,(ms-lastTime)/1000||0));window.renderAt(position);seek.value=position;clock.textContent=Math.floor(position/60)+':'+String(Math.floor(position)%60).padStart(2,'0')+' / 4:10';if(position>=END){playing=false;btn.textContent='▶ Replay'}}lastTime=ms;requestAnimationFrame(tick)}
 requestAnimationFrame(tick);
