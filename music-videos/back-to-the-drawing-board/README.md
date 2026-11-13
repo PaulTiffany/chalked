@@ -2,6 +2,20 @@
 
 A full-song, 4:10 browser music video synchronized to [Suno Version 2](https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f), developed as an **isolated subfolder** of Chalked.
 
+## Creator credits and production provenance
+
+**Created and directed by Paul Carver Tiffany III, with ChatGPT 6 (OpenAI) as creative and technical collaborator.** Original recorded music: [Suno Version 2](https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f). Inspired by [David's realignment-loop discourse](https://www.youtube.com/watch?v=n9_EsXZAQoQ) and Tiffany's June 26, 2026 AGI-26 *Signposts of Shared Imagination* extended abstract, including the drawing board's relationship to trust, autonomy, revision authority and evitability.
+
+Following the provenance conventions used for *Nobody Owns Tomorrow*, this subfolder includes:
+
+- [**Creative credits**](CREATIVE_CREDITS.md) — human/AI roles, music, timing, Chalked assets and actual production tools.
+- [**Release provenance**](RELEASE_PROVENANCE.md) — source graph, evidence limitations, reproduction status and rights caveats.
+- [**Timestamped music-to-source map**](MUSIC_TO_SOURCE_PROVENANCE.json) — Suno scene time versus source-video time, explicitly separating David's claims, Chalked's claims and original illustration ideas.
+- [**Toolchain receipt**](TOOLCHAIN_EXECUTION.json) — observed tools, song identifiers, source versions and what is *not* independently verified.
+- [**Art asset ledger**](ART_ASSET_PROVENANCE.json) — preexisting Chalked hero, procedural sketches, scene ledger, alignment and owner-supplied MP3.
+
+**Current repository status:** This is an **unmerged draft PR**. The repo contains native Chalked R0/V3 integration and V5 source/scene mapping, but the later creator-reviewed V6–V7 standalone sound-on video exports were delivered separately and are **not** established as reproducible from this exact branch. The creator-owned MP3 and output movies are not checked into Git. Authorship/provenance records do not imply David's endorsement, a settled consciousness result, or an independently certified final release.
+
 ## Why this is Chalked, not just a chalkboard animation
 
 The page contains the *actual* R0 Chalked application from the repository root, including its `marks`, `isAgent`, `deps`, `draw()`, `agentErase()`, and `cascade()` model. The video score sets deterministic marks on the real Chalked canvas, then invokes the original cascade on the erroneous handoff root. It adds an effects canvas with symbolic characters, clocks, compasses, signposts, envelopes, eraser gestures, a speed-imbalance network, and an ensemble ending. No existing root code or existing saved marks are modified.
