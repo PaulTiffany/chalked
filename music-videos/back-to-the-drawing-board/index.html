@@ -234,7 +234,8 @@ window.renderAt=t=>{t=Math.max(0,Math.min(END,t));nativeScore(t);A(t)};
 let position=0,playing=false,lastTime=0;
 function tick(ms){if(playing){if(!song.paused&&song.readyState)position=song.currentTime;else position+=Math.max(0,Math.min(.06,(ms-lastTime)/1000||0));window.renderAt(position);seek.value=position;clock.textContent=Math.floor(position/60)+':'+String(Math.floor(position)%60).padStart(2,'0')+' / 4:10';if(position>=END){playing=false;btn.textContent='▶ Replay'}}lastTime=ms;requestAnimationFrame(tick)}
 requestAnimationFrame(tick);
-btn.onclick=async()=>{if(playing){playing=false;song.pause();btn.textContent='▶ Play with music';return;}playing=true;song.currentTime=position;try{await song.play()}catch(e){console.warn('Remote audio blocked: load the authorized V2 MP3',e)}btn.textContent='❚❚ Pause'};
+btn.onclick=async()=>{if(playing){playing=false;song.pause();btn.textContent='▶ Play with music';return;}song.currentTime=position;btn.textContent='Loading V2 audio…';try{await song.play();playing=true;btn.textContent='❚❚ Pause'}catch(e){playing=false;btn.textContent='Load V2 MP3 to play';console.warn('Remote audio blocked: load the authorized V2 MP3',e)}};
+song.addEventListener('play',()=>{playing=true;btn.textContent='❚❚ Pause'});song.addEventListener('ended',()=>{playing=false;btn.textContent='▶ Replay'});
 seek.oninput=()=>{position=+seek.value;window.renderAt(position);if(song.readyState)song.currentTime=position};
 document.getElementById('mv-file').onchange=e=>{if(e.target.files[0]){song.src=URL.createObjectURL(e.target.files[0]);song.load()}};
 window.renderAt(0);
