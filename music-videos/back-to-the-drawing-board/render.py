@@ -24,7 +24,7 @@ async def render():
         b = await pw.chromium.launch(headless=True, executable_path='/usr/bin/chromium', args=['--no-sandbox','--disable-dev-shm-usage','--disable-gpu'])
         page = await b.new_page(viewport={'width':a.width+30,'height':round(a.width*9/16)+140},device_scale_factor=1)
         await page.set_content((HERE/'index.html').read_text(encoding='utf-8'), wait_until='domcontentloaded')
-        await page.evaluate('(w)=>{let c=document.getElementById("fx"); c.width=w;c.height=Math.round(w*9/16)}', a.width)
+        # Keep the internal 1280x720 drawing coordinates intact; the CSS viewport scales output.
         wrap = page.locator('.wrap')
         n = round(total*a.fps)
         for i in range(n):
