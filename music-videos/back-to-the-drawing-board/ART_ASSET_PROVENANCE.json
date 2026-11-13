@@ -1,0 +1,61 @@
+{
+  "schema": "chalked-back-to-the-drawing-board-art-assets/1",
+  "as_of": "2026-11-13",
+  "creator": "Paul Carver Tiffany III",
+  "collaborator": "ChatGPT 6 (OpenAI)",
+  "assets": [
+    {
+      "path": "../../assets/chalked-hero.png",
+      "role": "opening/closing preexisting Chalked hero",
+      "origin": "Existing Chalked root project asset",
+      "github_blob_sha": "8d740d24370beb407f49ad9b8dd657acc236f424",
+      "reused_in_video": true,
+      "original_asset_authorship_independently_verified": false
+    },
+    {
+      "path": "art_v3.js",
+      "role": "V3 symbolic procedural chalk illustration layer",
+      "origin": "Custom hand-directed code generated collaboratively",
+      "rendering": "JavaScript Canvas",
+      "committed_to_draft_branch": true,
+      "not_static_stock_media": true
+    },
+    {
+      "path": "art_v5.js",
+      "role": "V5 bespoke 85-line animated chalk scene score",
+      "origin": "Custom hand-directed code generated collaboratively",
+      "rendering": "JavaScript Canvas",
+      "committed_to_draft_branch": true,
+      "scene_ledger": "scene_pedigree_v5.csv",
+      "not_static_stock_media": true
+    },
+    {
+      "path": "scene_pedigree_v5.csv",
+      "role": "lyric-to-symbolic-action scene ledger",
+      "origin": "Creator-directed design and ChatGPT 6 editorial mapping",
+      "scene_count": 85,
+      "committed_to_draft_branch": true
+    },
+    {
+      "path": "timing_v2.json",
+      "role": "Suno V2 karaoke timecodes",
+      "origin": "Suno MCP best-effort alignment",
+      "word_entries": 568,
+      "line_entries": 94,
+      "committed_to_draft_branch": true
+    },
+    {
+      "path": "Back to the Drawing Board.mp3",
+      "role": "final selected audio",
+      "origin": "Suno Version 2, user-provided local file",
+      "committed_to_draft_branch": false,
+      "rights_and_release_entitlement_independently_verified": false
+    }
+  ],
+  "production_notes": [
+    "Procedural Canvas sketches are not described as output from an image-generation model.",
+    "Scripted agent marks illustrate Chalked R0 permission/dependency behavior; they do not prove autonomous inference.",
+    "Sound-on V7 conversation preview and latest local storyboard were not verified as code committed to the draft PR.",
+    "Third-party clip material from David's YouTube source is not part of documented rendering inputs."
+  ]
+}
