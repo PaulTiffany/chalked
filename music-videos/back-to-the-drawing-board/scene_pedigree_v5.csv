@@ -1,86 +1,86 @@
-scene,start_s,end_s,lyric,visual_storyboard_reference,asset_version
-1,5.06,8.88,You said yes,Two yeses; a speaker and a chalk agreement,V5 bespoke
-2,8.88,12.1,I said yes,Second yes; another speaker with different agency,V5 bespoke
-3,12.1,28.97,"Same word, different worlds","Globe with SALE: English discount versus Italian salt; one spelling, different meanings",V5 bespoke
+scene,start_s,end_s,lyric,actual_symbolic_sketch,asset_version
+1,5.06,8.88,You said yes,A cyan speaker commits YES; cyan ink-drop illustrates a specific speaker's assent.,V5 bespoke
+2,8.88,12.1,I said yes,A pink speaker independently commits YES; a different fingerprint indicates separate agency.,V5 bespoke
+3,12.1,28.97,"Same word, different worlds","Globe, English SALE storefront and Italian sale salt being sprinkled on pasta; identical spelling carries different readings.",V5 bespoke
 4,28.97,32.72,I was racing for the finish,Racing for the finish,V4 retained
 5,32.72,36.55,You were asking who's affected,A roundtable of affected people,V4 retained
-6,36.55,39.42,We both understood the mission,A shared mission stamped twice,V5 bespoke
+6,36.55,39.42,We both understood the mission,"Two separately signed agreements with the same heading; shared task, separately lived priorities.",V5 bespoke
 7,39.42,43.17,But we weighed it different ways,A scale weighs unlike priorities,V4 retained
-8,43.17,45.11,When you told me what you'd heard,A reported statement passes between faces,V5 bespoke
+8,43.17,45.11,When you told me what you'd heard,"Detailed ear, listening waves and words heard; receiving a message precedes interpreting it.",V5 bespoke
 9,45.11,47.02,I could see the road you'd taken,One road revealed through the others eyes,V4 retained
-10,47.02,48.99,Not a failure of the language,Language shared; meanings part,V5 bespoke
-11,48.99,50.83,Just a choice we hadn't made,Choice tree with two unselected routes,V5 bespoke
-12,50.83,52.68,A clearer note can show the crack,Crack in a written note,V5 bespoke
-13,52.68,54.56,Can't tell us what to prize,Values cannot be decided by wording,V5 bespoke
-14,54.56,56.61,So tell me while the line is loose,A mark drawn while still loose,V5 bespoke
-15,56.61,60.06,Before the ink has dried,Wet ink dries under sunlight,V5 bespoke
-16,60.06,62.91,Back to the drawing board!,A chalkboard with a human eraser,V5 bespoke
-17,62.91,64.6,Draw another line,A new landscape line inked in,V5 bespoke
-18,64.6,66.54,Trust is giving room to move,Trust as hands exchanging a key,V5 bespoke
-19,66.54,67.89,And room to change our minds,Different possible paths remain available,V5 bespoke
-20,67.89,69.83,Back to the drawing board!,"The board becomes a flower, not old plan",V5 bespoke
-21,69.83,71.8,Call the whole room in,A whole room gathers to deliberate,V5 bespoke
-22,71.8,75.51,How soon do we know we're drifting?,Two compasses drift apart,V5 bespoke
-23,75.51,78.86,Who can change what happens next?,A wheel and a key confer authority,V5 bespoke
-24,78.86,83.79,Who holds the eraser?,A human hand holds the eraser,V5 bespoke
-25,83.79,87.64,"Round and round, not the same again",A rotated ornamental return,V5 bespoke
-26,87.64,91.73,"Draw it, draw it, draw it again!",New chalk lines begin again,V5 bespoke
+10,47.02,48.99,Not a failure of the language,One message enters a chalk prism and becomes differently weighted interpretations.,V5 bespoke
+11,48.99,50.83,Just a choice we hadn't made,An undecided fork opens two possible actions; the common trunk does not dictate the branch.,V5 bespoke
+12,50.83,52.68,A clearer note can show the crack,The agreement page acquires a spreading crack visible under inspection.,V5 bespoke
+13,52.68,54.56,Can't tell us what to prize,A speed-versus-people scale weighs clock against community rather than a vocabulary error.,V5 bespoke
+14,54.56,56.61,So tell me while the line is loose,A paper aircraft and an unfinished line indicate a decision is still reversible.,V5 bespoke
+15,56.61,60.06,Before the ink has dried,Ink drops and a running clock show a choice approaching commitment.,V5 bespoke
+16,60.06,62.91,Back to the drawing board!,A literal choice gate labeled NOW / LATER with human eraser crossing it.,V5 bespoke
+17,62.91,64.6,Draw another line,"A new route is drawn live across the board by the chalk pen, rather than restored.",V5 bespoke
+18,64.6,66.54,Trust is giving room to move,"A departing paper plane, human hand and trailing chalk show delegated autonomy with room to act.",V5 bespoke
+19,66.54,67.89,And room to change our minds,Two minds look toward an unfinished fork: they retain the option of different decisions.,V5 bespoke
+20,67.89,69.83,Back to the drawing board!,Eraser revises a fractured agreement into a different possible plan.,V5 bespoke
+21,69.83,71.8,Call the whole room in,A tiered auditorium of participants is called into the decision.,V5 bespoke
+22,71.8,75.51,How soon do we know we're drifting?,Two sailboats depart in different directions; divergence becomes visible.,V5 bespoke
+23,75.51,78.86,Who can change what happens next?,Railway turnout and switch lever illustrate authority to redirect the next step.,V5 bespoke
+24,78.86,83.79,Who holds the eraser?,"Eye, pen, eraser and human hand distinguish access, inscription and revision rights.",V5 bespoke
+25,83.79,87.64,"Round and round, not the same again",A looping orbital path returns to a changed point: iteration is not reset.,V5 bespoke
+26,87.64,91.73,"Draw it, draw it, draw it again!","A new chalk ribbon/path appears from a moving pen, with independent stars marking differences.",V5 bespoke
 27,91.73,95.42,Your compass isn't my compass,Compasses with different bearings,V4 retained
-28,95.42,99.3,Still our roads can share a mile,Bridge connects separate roads,V5 bespoke
-29,99.3,103.12,We can leave a question open,A question stays open in a book,V5 bespoke
-30,103.12,105.95,Let the difference stay awhile,Two clocks proceed out of phase,V5 bespoke
-31,105.95,107.92,Everyone can read the signpost,Anyone may read the sign,V5 bespoke
-32,107.92,109.71,Not everyone is who it's for,An envelope has an intended recipient,V5 bespoke
-33,109.71,111.43,Who can write and who can wipe it?,Read-write-erase physical tools,V5 bespoke
+28,95.42,99.3,Still our roads can share a mile,Two distinct vessels share the span of a bridge before their routes part again.,V5 bespoke
+29,99.3,103.12,We can leave a question open,Open illustrated book contains questions WHY and WHO rather than a forced answer.,V5 bespoke
+30,103.12,105.95,Let the difference stay awhile,Different species of chalk blooms grow in shared soil without merging.,V5 bespoke
+31,105.95,107.92,Everyone can read the signpost,Public sign faces a shared auditorium: readable marks on a social surface.,V5 bespoke
+32,107.92,109.71,Not everyone is who it's for,A page marked TO: A is read by B; reading and intended addressivity differ.,V5 bespoke
+33,109.71,111.43,Who can write and who can wipe it?,"Three symbolic rights (eye, pen, eraser) in one shared permission frame.",V5 bespoke
 34,111.43,113.79,Who gets to reopen the door?,A door can be reopened,V4 retained
-35,113.79,115.57,Tomorrow brings a different world,Sunrise over the city,V5 bespoke
-36,115.57,117.86,The goal can change as well,Moving the goalpost when the world changes,V5 bespoke
-37,117.86,119.76,A warning isn't power,A warning beacon cannot compel action,V5 bespoke
+35,113.79,115.57,Tomorrow brings a different world,Globe and moving paper aircraft represent tomorrow's genuinely new world.,V5 bespoke
+36,115.57,117.86,The goal can change as well,A destination star moves while a chalk route is being chosen: revisable goal.,V5 bespoke
+37,117.86,119.76,A warning isn't power,A lighthouse warning meets a blocked microphone: signaling is not intervention authority.,V5 bespoke
 38,119.76,122.86,If no one gets to steer,Steering wheel separated from vessel,V4 retained
-39,122.86,125.66,Back to the drawing board!,A different illustration replaces old plan,V5 bespoke
-40,125.66,127.31,Draw another line,A new line crosses the slate,V5 bespoke
-41,127.31,129.29,Trust is giving room to move,A key transfers autonomy,V5 bespoke
-42,129.29,130.68,And room to change our minds,A plant branches into future choices,V5 bespoke
-43,130.68,132.59,Back to the drawing board!,Eraser makes a place for a new sun,V5 bespoke
-44,132.59,134.55,Call the whole room in,The forum is invited and heard,V5 bespoke
-45,134.55,138.23,How soon do we know we're drifting?,A clock notices compass drift,V5 bespoke
-46,138.23,141.59,Who can change what happens next?,A ship gets a working steering connection,V5 bespoke
-47,141.59,146.37,Who holds the eraser?,An eraser requires legitimate access,V5 bespoke
-48,146.37,148.02,Two agents checked the sent mail,Two robots check sent mail,V5 bespoke
-49,148.02,149.97,Said the choice was open still,Still open? a false interpretation,V5 bespoke
-50,149.97,152.07,But the answer lived in another record,The overlooked reply in the cabinet,V5 bespoke
-51,152.07,153.63,And the morning plan went on,The morning meeting goes ahead,V5 bespoke
-52,153.63,155.72,Each new handoff held the first guess,A guess passes between messengers,V5 bespoke
-53,155.72,157.51,Every step depended on it,A dependency chain grows,V5 bespoke
-54,157.51,159.45,Till we checked it with the record,Check the actual record,V5 bespoke
-55,159.45,161.71,And we saw where it went wrong,A dependent chain collapses under revision,V5 bespoke
-56,161.71,163.18,"Faster, faster, plans are turning",A factory accelerates decisions,V5 bespoke
-57,163.18,165.54,Faster than the room can read,The record cannot be read fast enough,V5 bespoke
-58,165.54,167.08,"Faster, faster, hands are moving",Hands outpace the mechanism,V5 bespoke
-59,167.08,168.95,Past the chance to disagree,A microphone is unheard before the clock runs out,V5 bespoke
-60,168.95,170.86,You can name a human captain,The captain is named,V5 bespoke
-61,170.86,172.74,Of a ship they cannot steer,The wheel is remote from the ship,V5 bespoke
-62,172.74,174.63,If they cannot change the heading,The direction cannot be changed,V5 bespoke
-63,174.63,180.33,What does being in charge mean here?,Nominal authority without control,V5 bespoke
-64,180.33,182.37,Who can read it? (Who is it for?),Read access and the intended addressee,V5 bespoke
-65,182.37,184.21,Who can write it? (Who holds the board?),Writing a new mark on the contract,V5 bespoke
-66,184.21,187.02,Who can stop it? (Who holds the eraser?),A locked eraser held by a person,V5 bespoke
-67,187.02,188.66,Bring the choice back to the floor,The forum reopens the question,V5 bespoke
-68,188.66,190.9,No promise we can solve tomorrow,An unmade future without a promise,V5 bespoke
-69,190.9,192.44,Or keep pace with every mind,A car races a superhuman clock,V5 bespoke
-70,192.44,194.6,But we can count the time to notice,A timer counts detection latency,V5 bespoke
-71,194.6,202.6,And the cost of changing lines,Revision has measurable cost,V5 bespoke
-72,202.6,205.4,Back to the drawing board!,The returned board supports a different plant,V5 bespoke
-73,205.4,207.07,Draw another line,A continuous new stroke,V5 bespoke
-74,207.07,208.99,Trust is giving room to move,Hands connect through a trusted key,V5 bespoke
-75,208.99,210.43,And room to change our minds,Distinct plants coexist without unison,V5 bespoke
-76,210.43,212.35,Back to the drawing board!,The board grows into a city,V5 bespoke
-77,212.35,214.23,Call the whole room in,The forum returns around the table,V5 bespoke
-78,214.23,217.98,How soon do we know we're drifting?,Notice divergence through lens,V5 bespoke
-79,217.98,221.28,Who can change what happens next?,Actual steering reconnects to ship,V5 bespoke
-80,221.28,225.52,Who holds the eraser?,"Human can erase, revise and authorize",V5 bespoke
-81,225.52,229.34,You said yes,One speaker says yes again,V5 bespoke
-82,229.34,232.19,I said yes,The other agrees on different terms,V5 bespoke
-83,232.19,236.17,Now we know what to ask,Now both can ask who and why,V5 bespoke
-84,236.17,240.02,"Round and round, not where we began",Return with a changed orientation,V5 bespoke
-85,240.02,249.8,We can trust and change the plan,A shared world with different contributions,V5 bespoke
+39,122.86,125.66,Back to the drawing board!,"The forum can withdraw confidence and call for a new mandate, signaled by an eraser.",V5 bespoke
+40,125.66,127.31,Draw another line,A changed switch point sends the next train onto a different track.,V5 bespoke
+41,127.31,129.29,Trust is giving room to move,A hand releases a paper aircraft: delegated freedom is exercised rather than micromanaged.,V5 bespoke
+42,129.29,130.68,And room to change our minds,Two assent documents stand alongside a non-returning iterative spiral.,V5 bespoke
+43,130.68,132.59,Back to the drawing board!,"A human eraser reopens the NOW / LATER gate, making options available again.",V5 bespoke
+44,132.59,134.55,Call the whole room in,An auditorium receives the call for collective deliberation.,V5 bespoke
+45,134.55,138.23,How soon do we know we're drifting?,Diverging sailboats and clock represent delay between drift and recognition.,V5 bespoke
+46,138.23,141.59,Who can change what happens next?,A railway switch changes where the next action goes.,V5 bespoke
+47,141.59,146.37,Who holds the eraser?,A lock opens only through authorized key; fingerprints indicate responsibility.,V5 bespoke
+48,146.37,148.02,Two agents checked the sent mail,Two separate office buildings with an envelope: two agents checking sent mail.,V5 bespoke
+49,148.02,149.97,Said the choice was open still,Open envelope versus red OPEN? file: mistaken inference from an incomplete record.,V5 bespoke
+50,149.97,152.07,But the answer lived in another record,Physical records cabinet reveals a green DECIDED document and verification mark.,V5 bespoke
+51,152.07,153.63,And the morning plan went on,"Morning sun, schedule clock and still-convened auditorium: the plan proceeded.",V5 bespoke
+52,153.63,155.72,Each new handoff held the first guess,A red hypothesis propagates along multiple dependent message boxes.,V5 bespoke
+53,155.72,157.51,Every step depended on it,ASSUMPTION continues down an expanding inherited-error relay chain.,V5 bespoke
+54,157.51,159.45,Till we checked it with the record,A second inspection opens the cabinet and checks the authoritative record.,V5 bespoke
+55,159.45,161.71,And we saw where it went wrong,Chalk chain breaks when a human authorized revision withdraws the bad assumption.,V5 bespoke
+56,161.71,163.18,"Faster, faster, plans are turning","Production-line factory, gears and growing plans illustrate machine-speed execution.",V5 bespoke
+57,163.18,165.54,Faster than the room can read,Fast clock beside unreadable bursts of output: reconstruction falls behind production.,V5 bespoke
+58,165.54,167.08,"Faster, faster, hands are moving",An aircraft outruns a human hand and opportunity for review.,V5 bespoke
+59,167.08,168.95,Past the chance to disagree,Roomful of participants with a warning struck through as the clock runs out.,V5 bespoke
+60,168.95,170.86,You can name a human captain,A ship with a captain's badge: nominally assigned human command.,V5 bespoke
+61,170.86,172.74,Of a ship they cannot steer,"Human portrait, sailing vessel and severed helm line: a title without effective control.",V5 bespoke
+62,172.74,174.63,If they cannot change the heading,Switch point frozen and locked: the next heading can no longer change.,V5 bespoke
+63,174.63,180.33,What does being in charge mean here?,"The named captain remains separate from the control channel, challenging nominal authority.",V5 bespoke
+64,180.33,182.37,Who can read it? (Who is it for?),Magnifying glass reads a page: access is not identical with intended recipient.,V5 bespoke
+65,182.37,184.21,Who can write it? (Who holds the board?),A pen writes near a fingerprint-marked contract: who is permitted to make a mark?,V5 bespoke
+66,184.21,187.02,Who can stop it? (Who holds the eraser?),"Chalk eraser, human hand and guarded lock ask who may withdraw a mark.",V5 bespoke
+67,187.02,188.66,Bring the choice back to the floor,Auditorium with OPEN THE CHOICE call: the legitimate forum reopens deliberation.,V5 bespoke
+68,188.66,190.9,No promise we can solve tomorrow,Uncertain sun and rain around a question mark: no guarantee about tomorrow.,V5 bespoke
+69,190.9,192.44,Or keep pace with every mind,"An aircraft races the runway clock, embodying limits of human pace.",V5 bespoke
+70,192.44,194.6,But we can count the time to notice,Signal lighthouse and timer show latency between signal and recognition.,V5 bespoke
+71,194.6,202.6,And the cost of changing lines,Construction crane must lift a REWORK beam; revising has measurable costs.,V5 bespoke
+72,202.6,205.4,Back to the drawing board!,"Plural chalk flowers in shared soil are revisited with an eraser, not reset.",V5 bespoke
+73,205.4,207.07,Draw another line,"A moving chalk pen sketches a different, newly chosen path.",V5 bespoke
+74,207.07,208.99,Trust is giving room to move,Real handshake passes agency while paper plane flies independently.,V5 bespoke
+75,208.99,210.43,And room to change our minds,Distinct flowers continue growing with shared ground and nonidentical forms.,V5 bespoke
+76,210.43,212.35,Back to the drawing board!,A shared cityscape arises from individually colored contributions to a common space.,V5 bespoke
+77,212.35,214.23,Call the whole room in,A room full of stakeholders returns to the center of governance.,V5 bespoke
+78,214.23,217.98,How soon do we know we're drifting?,Divergent boats are placed under a magnifying glass: early detection of drift.,V5 bespoke
+79,217.98,221.28,Who can change what happens next?,"A reachable turnout redirects the next action, not merely the description of it.",V5 bespoke
+80,221.28,225.52,Who holds the eraser?,Human-held eraser with contract limits: authorized revision remains possible.,V5 bespoke
+81,225.52,229.34,You said yes,First participant says YES in a cyan speech frame.,V5 bespoke
+82,229.34,232.19,I said yes,Second participant says YES independently in pink.,V5 bespoke
+83,232.19,236.17,Now we know what to ask,An open question book now contains WHY and WHO for better coordination.,V5 bespoke
+84,236.17,240.02,"Round and round, not where we began","Loop returns with changed orientation, explicitly not the original state.",V5 bespoke
+85,240.02,249.8,We can trust and change the plan,Different contributors build a city under one sky; the plan is changed together.,V5 bespoke
