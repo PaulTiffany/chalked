@@ -1,5 +1,5 @@
 """Render the Chalked music video as MP4 with an authorized owner-supplied Suno V2 file."""
-import argparse, asyncio, subprocess
+import argparse, asyncio, subprocess, base64
 from pathlib import Path
 from playwright.async_api import async_playwright
 
@@ -24,6 +24,13 @@ async def render():
         b = await pw.chromium.launch(headless=True, executable_path='/usr/bin/chromium', args=['--no-sandbox','--disable-dev-shm-usage','--disable-gpu'])
         page = await b.new_page(viewport={'width':a.width+30,'height':round(a.width*9/16)+140},device_scale_factor=1)
         await page.set_content((HERE/'index.html').read_text(encoding='utf-8'), wait_until='domcontentloaded')
+        # set_content has no file base URL: load the V3 artwork explicitly.
+        await page.add_script_tag(content=(HERE/'art_v3.js').read_text(encoding='utf-8'))
+        # Preserve the original Chalked hero asset in the export, without a server.
+        original_hero = HERE.parent.parent / 'assets' / 'chalked-hero.png'
+        if original_hero.exists():
+            uri = 'data:image/png;base64,' + base64.b64encode(original_hero.read_bytes()).decode('ascii')
+            await page.locator('#chalked-hero').evaluate('(el, src) => el.src=src', uri)
         # Keep the internal 1280x720 drawing coordinates intact; the CSS viewport scales output.
         wrap = page.locator('.wrap')
         n = round(total*a.fps)
