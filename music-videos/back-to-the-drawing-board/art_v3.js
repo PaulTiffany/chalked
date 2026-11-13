@@ -275,6 +275,8 @@ function render(t){t=q(t,0,END);if(typeof nativeScore==='function')nativeScore(t
  fillRect(62,620,1156,44,C.ink,.91);text(lyric(t),640,644,22,C.light,'center',1);
  text(name,640,106,24,C.gold,'center',.85);
  line(72,685,1204,685,C.cream,3,.2);line(72,685,72+(1204-72)*t/END,685,C.cyan,5,.85);
+ const originalHero=document.getElementById('chalked-hero');
+ if(originalHero)originalHero.style.opacity=String(t<3?.88*(1-ease(t/3)):t>246?.78*ease((t-246)/3.8):0);
  return t;}
  window.renderAt=render;
  window.chalkedArtVersion='V3 lyric-directed illustrations';
