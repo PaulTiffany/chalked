@@ -1,0 +1,105 @@
+{
+  "schema": "chalked-back-to-the-drawing-board-toolchain/1",
+  "as_of": "2026-11-13",
+  "scope": "Source-backed production receipt for a draft PR and creator-delivered standalone previews; not a binary audit of a final public release.",
+  "creators": {
+    "director": "Paul Carver Tiffany III",
+    "creative_technical_collaborator": "ChatGPT 6 (OpenAI)"
+  },
+  "song": {
+    "service": "Suno",
+    "model": "v6",
+    "title": "Back to the Drawing Board",
+    "selected_version": 2,
+    "clip_id": "d46935d4-76c7-457f-8a28-a853df08039f",
+    "url": "https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f",
+    "created_at_utc": "2026-11-13T00:33:01Z",
+    "duration_s": 249.8,
+    "owner_supplied_local_mp3": true,
+    "mp3_tracked_in_git": false,
+    "commercial_distribution_rights_verified": false
+  },
+  "suno_mcp": {
+    "used_for": [
+      "audio creation",
+      "song metadata",
+      "creator-authorized download request",
+      "machine-derived lyric alignment"
+    ],
+    "word_entries": 568,
+    "line_entries": 94,
+    "repo_alignment": "timing_v2.json",
+    "limitations": "Best-effort automated timing; no independent ear-certificate. Download-credit expenditure is not a commercial-use license."
+  },
+  "source_code": {
+    "repository": "PaulTiffany/chalked",
+    "pull_request": "https://github.com/PaulTiffany/chalked/pull/1",
+    "branch": "feat/back-to-the-drawing-board-music-video",
+    "source_scope": "music-videos/back-to-the-drawing-board/",
+    "root_application_modified": false,
+    "art_v3": "art_v3.js",
+    "art_v5": "art_v5.js",
+    "line_level_visual_ledger": "scene_pedigree_v5.csv",
+    "native_r0_dependency_and_cascade": true,
+    "live_autonomous_inference": false
+  },
+  "verified_asset_identity": {
+    "path": "../../assets/chalked-hero.png",
+    "github_blob_sha": "8d740d24370beb407f49ad9b8dd657acc236f424",
+    "description": "Preexisting Chalked illustration; original asset author and method not independently verified."
+  },
+  "executed_or_used_code_families": [
+    "JavaScript / HTML Canvas original chalk drawing implementation",
+    "Python local render wrapper",
+    "Playwright / Chromium browser rendering",
+    "FFmpeg H.264 / AAC encoding"
+  ],
+  "binary_versions_for_exact_render": "not captured or independently verified",
+  "direct_pinned_git_submodules_claimed": [],
+  "music_video_render_command": "python render.py --audio '/path/to/Back to the Drawing Board.mp3' --output back_to_the_drawing_board.mp4",
+  "distinct_delivery_status": {
+    "sound_on_standalone_previews_reported": "V3 through V7",
+    "version_currently_native_pr_qualified": "not qualified",
+    "latest_v7_source_committed_to_pr": false,
+    "public_media_binary_committed": false
+  },
+  "historically_considered_but_not_executed": [
+    "No claim of ELYSY",
+    "No claim of UseSuno MV Studio",
+    "No claim of WhisperX"
+  ],
+  "sources": [
+    {
+      "kind": "source discourse",
+      "url": "https://www.youtube.com/watch?v=n9_EsXZAQoQ",
+      "grounding": "user-provided timestamped transcript"
+    },
+    {
+      "kind": "creator-submitted theory",
+      "title": "Signposts of Shared Imagination: Permissions, Addressivity, and the Access–Phenomenal Boundary",
+      "submitted": "2026-06-26"
+    },
+    {
+      "kind": "creator-reported discussion",
+      "name": "Ikigai Collective",
+      "date": "2026-11-12",
+      "verification": "exact contribution not independently retrieved"
+    }
+  ],
+  "archived_workshop_abstract": {
+    "path": "Chalked_extended_abstract_2026-07-24.pdf",
+    "sha256": "d716a91d1a7c582ecd52c43369a86913e633c7b59e3c794f5ae777a14a445804",
+    "git_blob_sha1": "a85a1137283f9af7aa0c69ab37af5a892d86cb14",
+    "pdf_metadata_creation_date": "2026-07-24",
+    "pages": 4,
+    "bytes": 132510,
+    "creator_reported_acceptance_status": "not accepted",
+    "independent_rejection_record_found": false,
+    "distinct_from_june26_submission": true,
+    "submission_variant_id": "Signposts of Shared Imagination",
+    "verification": "Exact uploaded binary hash agrees with Git blob sha1 and GitHub file retrieval."
+  },
+  "local_media_receipt": "MEDIA_RECEIPT.json",
+  "source_pedigree_guide": "SOURCE_PEDIGREE.md",
+  "historical_submission_differentiation": "June 26 Signposts abstract documented separately; July 24 Chalked paper in repository must not be presented as submitted on June 26."
+}

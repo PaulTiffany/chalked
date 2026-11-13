@@ -1,0 +1,59 @@
+{
+  "schema": "chalked-bttdb-local-media-receipt/1",
+  "observed_on": "2026-11-13",
+  "verification_method": "SHA-256 calculated from conversation-mounted local bytes; ffprobe read stream metadata from exact local files; outputs are not committed to GitHub.",
+  "song": {
+    "name": "Back to the Drawing Board.mp3",
+    "origin": "Suno V2, user supplied",
+    "sha256": "e67437661c300e4dc5d3c379b04c7d15f73dceb7ddf35cdeaa96c1d628c09bc4",
+    "bytes": 6003691,
+    "duration_seconds": 249.84,
+    "format": "MP3",
+    "audio_codec": "mp3",
+    "sample_rate_hz": 48000,
+    "channels": 2,
+    "embedded_album_art": "MJPEG 360x360",
+    "public_git_binary": false
+  },
+  "videos": [
+    {
+      "name": "Back_to_the_Drawing_Board_V7_compact.mp4",
+      "sha256": "c67e18b12c2521a0ee941f353dfb04baef572406b9d543d74951f7651e54f560",
+      "bytes": 5454351,
+      "duration_seconds": 249.833333,
+      "width": 960,
+      "height": 540,
+      "fps": 12,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "sample_rate_hz": 48000,
+      "audio_channels": 2,
+      "public_git_binary": false
+    },
+    {
+      "name": "Back_to_the_Drawing_Board_V7_clean_layout.mp4",
+      "sha256": "23d52acd490ee9e6c62d05e157d579c1aa6b8e197629322f28a7bd3ead43cfb5",
+      "bytes": 26369809,
+      "duration_seconds": 249.833333,
+      "width": 960,
+      "height": 540,
+      "fps": 12,
+      "video_codec": "h264",
+      "audio_codec": "aac",
+      "sample_rate_hz": 48000,
+      "audio_channels": 2,
+      "public_git_binary": false
+    }
+  ],
+  "qualifications": [
+    "These are conversation-mounted local media artifacts: checksums verify exact observed files, not their presence on GitHub or their future availability.",
+    "The latest V7 visual version was supplied in the conversation and is not independently qualified as an export from the current native Chalked R0 GitHub PR.",
+    "FFprobe confirmed audio and video codec/stream metadata and durations; it does not independently prove karaoke words are in perceptual synchrony.",
+    "The separate creator-provided MP3 was authorized for this creative project, but commercial-use license terms are not independently checked.",
+    "No claim of external publication or completed Artilect showcase submission."
+  ],
+  "software_observed_today": {
+    "ffmpeg_version": "7.1.5-0+deb13u1",
+    "note": "This is a current inspection environment measurement, not proof of the exact FFmpeg binary used to produce earlier exports."
+  }
+}

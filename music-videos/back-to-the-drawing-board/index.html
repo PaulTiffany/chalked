@@ -1,0 +1,243 @@
+<!DOCTYPE html><html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chalked - draw a mark, watch the agents answer</title>
+<style>
+* { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif; background: #eef0ef; min-height: 100vh; display: flex; justify-content: center; align-items: flex-start; padding: 24px; }
+.container { background: #fff; border-radius: 14px; box-shadow: 0 6px 28px rgba(0,0,0,0.12); width: 100%; max-width: 860px; overflow: hidden; }
+.header { padding: 14px 20px; border-bottom: 1px solid #eee; display:flex; align-items:baseline; gap:10px; flex-wrap:wrap; }
+.header h1 { font-size: 20px; color: #222; }
+.header .sub { font-size: 12px; color: #999; }
+.header .terms-link { margin-left:auto; align-self:center; font-size:13px; color:#00838f; text-decoration:none; font-weight:600; border:1px solid #b2ebf2; padding:6px 13px; border-radius:8px; white-space:nowrap; }
+.header .terms-link:hover { background:#e0f7fa; }
+.bar { display:flex; gap:8px; padding: 10px 20px; border-bottom: 1px solid #eee; align-items:center; flex-wrap:wrap; }
+.bar .tip { font-size:12px; color:#777; flex:1; min-width:200px; }
+.btn { padding: 8px 14px; border: none; border-radius: 7px; cursor: pointer; font-size: 13px; background:#f1f1f1; color:#555; border:1px dashed #ccc; }
+.btn:hover { background:#e8e8e8; }
+.wrap { position: relative; }
+canvas { display:block; width:100%; height:480px; background:#28323a; background-image: radial-gradient(circle at 28% 18%, rgba(255,255,255,0.035), transparent 60%); touch-action:none; cursor: crosshair; }
+.hint { position:absolute; top:50%; left:50%; transform:translate(-50%,-50%); color:#5b6b73; font-size:15px; text-align:center; pointer-events:none; }
+.info { padding: 10px 20px; font-size: 11px; color: #888; border-top:1px solid #eee; background:#fafafa; line-height:1.5; }
+.info b { color:#00838f; } .sw { display:inline-block; width:10px; height:10px; border-radius:50%; vertical-align:middle; }
+</style>
+<style>
+body{background:#14242c!important;padding:10px!important}.container{max-width:1280px!important;margin:auto}
+.header,.bar,.info,.hint{display:none!important}.wrap{aspect-ratio:16/9!important;overflow:hidden}
+#c{height:100%!important;width:100%!important;pointer-events:none}#fx{position:absolute;inset:0;width:100%!important;height:100%!important;pointer-events:none;background:transparent!important}
+.video-heading,.video-control,.video-note{max-width:1280px;margin:10px auto;color:#e3f0ed;font:14px system-ui;display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.video-heading{font-size:18px;font-weight:800;letter-spacing:.1em}.video-heading span,.video-note{font-size:12px;color:#acc0c0}
+.video-control button,.video-control label{border:1px solid #6c8e98;background:#233e48;color:white;border-radius:5px;padding:7px 12px;cursor:pointer}
+.video-control input[type=range]{flex:1;min-width:180px}.video-control input[type=file]{display:none}.video-control a{color:#78e2ed}
+#chalked-hero{position:absolute;top:4%;left:18%;width:64%;opacity:0;pointer-events:none}audio{max-width:230px;height:30px}
+</style></head>
+<body>
+<div class="video-heading">CHALKED / BACK TO THE DRAWING BOARD <span>PEOPLE HOLD THE ERASER</span></div><div class="container">
+<div class="header"><h1>🖍️ Chalked</h1><span class="sub">draw a mark — the agents answer — people hold the eraser</span><a class="terms-link" href="eula/">📜 The Terms ›</a></div>
+<div class="bar">
+<span class="tip">Draw <b>cyan</b> marks with your mouse. Agents reply in their colors and <b>weave between several of your marks</b>. <b>Click any mark to erase it</b> — an agent poofs if <i>any</i> mark it depends on is erased.</span>
+<button class="btn" id="tidyBtn">🤖 agent tidies one</button>
+<button class="btn" id="clearBtn">Clear board</button>
+</div>
+<div class="wrap"><canvas id="c"></canvas><canvas id="fx" width="1280" height="720"></canvas><img id="chalked-hero" src="../../assets/chalked-hero.png"><div class="hint" id="hint">draw a stroke with your mouse ✦</div></div>
+<div class="info">
+<span class="sw" style="background:#00bcd4"></span> <b>Cyan = you (human)</b> — you may erase any mark.
+&nbsp;•&nbsp; Other colors = agents (<b>mock</b> — no real inference). An agent can depend on <b>several</b> marks and
+draws itself between them; if <b>any</b> dependency is erased, the agent poofs — and so does anything built on it.
+Agents tend each other but can never erase your mark.
+</div>
+</div>
+<script>
+const HUMAN_COLOR = '#00bcd4';
+const MOCK_AGENTS = [
+  { name: 'agent one',   color: '#aa78c8' },
+  { name: 'agent two',   color: '#e9964b' },
+  { name: 'agent three', color: '#5bbf6f' },
+  { name: 'agent four',  color: '#e0708a' },
+];
+const STORAGE_KEY = 'chalked_strokes_v4';
+const cv = document.getElementById('c');
+const ctx = cv.getContext('2d');
+let marks = JSON.parse(localStorage.getItem(STORAGE_KEY) || '[]');
+let agentTurn = 0, W = 0, H = 0;
+const uid = () => Math.random().toString(36).slice(2, 9);
+const byId = id => marks.find(m => m.id === id);
+const save = () => localStorage.setItem(STORAGE_KEY, JSON.stringify(marks));
+const centroid = m => { let x=0,y=0; for (const p of m.pts){x+=p[0];y+=p[1];} return [x/m.pts.length, y/m.pts.length]; };
+
+function fit() {
+  const dpr = window.devicePixelRatio || 1;
+  W = cv.clientWidth; H = cv.clientHeight;
+  cv.width = W*dpr; cv.height = H*dpr;
+  ctx.setTransform(dpr,0,0,dpr,0,0);
+  draw();
+}
+window.addEventListener('resize', fit);
+
+function strokePath(pts, color) {
+  if (!pts.length) return;
+  ctx.strokeStyle = color; ctx.fillStyle = color;
+  ctx.lineWidth = 3.5; ctx.lineJoin = 'round'; ctx.lineCap = 'round';
+  ctx.shadowColor = color; ctx.shadowBlur = 7;
+  ctx.beginPath(); ctx.moveTo(pts[0][0], pts[0][1]);
+  for (let i=1;i<pts.length;i++) ctx.lineTo(pts[i][0], pts[i][1]);
+  ctx.stroke();
+  if (pts.length===1){ ctx.beginPath(); ctx.arc(pts[0][0],pts[0][1],2.6,0,7); ctx.fill(); }
+  ctx.shadowBlur = 0;
+}
+
+function draw() {
+  ctx.clearRect(0,0,W,H);
+  // dependency lines — every link an agent leans on (the cascade made visible)
+  ctx.setLineDash([3,6]); ctx.lineWidth = 1.4;
+  for (const m of marks) if (m.deps) for (const dep of m.deps) { const p = byId(dep); if (p){
+    const a=centroid(m), b=centroid(p);
+    ctx.strokeStyle = 'rgba(220,222,210,0.16)'; ctx.beginPath(); ctx.moveTo(a[0],a[1]); ctx.lineTo(b[0],b[1]); ctx.stroke(); } }
+  ctx.setLineDash([]);
+  for (const m of marks) strokePath(m.pts, m.color);
+  if (cur) strokePath(cur.pts, HUMAN_COLOR);
+  document.getElementById('hint').style.display = marks.length ? 'none' : 'block';
+}
+
+// --- agent scribble: a short procedural squiggle, fanning from a point ---
+function doodle(ax, ay, ang) {
+  const pts = []; let x = ax + Math.cos(ang)*44, y = ay + Math.sin(ang)*44, a = ang + (Math.random()-0.5);
+  const n = 7 + (Math.random()*6|0);
+  for (let i=0;i<n;i++){ pts.push([x,y]); a += (Math.random()-0.5)*1.3; const step = 8+Math.random()*7; x += Math.cos(a)*step; y += Math.sin(a)*step; }
+  return pts;
+}
+const inBounds = pts => pts.every(p => p[0]>10 && p[0]<W-10 && p[1]>10 && p[1]<H-10);
+
+// an agent that DEPENDS ON a set of marks, drawn between them
+function agentDraw(deps) {
+  deps = deps.filter(byId);
+  if (!deps.length) return null;
+  const cs = deps.map(id => centroid(byId(id)));
+  const ax = cs.reduce((s,c)=>s+c[0],0)/cs.length, ay = cs.reduce((s,c)=>s+c[1],0)/cs.length;
+  const ag = MOCK_AGENTS[agentTurn++ % MOCK_AGENTS.length];
+  let pts;
+  const jitter = deps.length>1 ? 26 : 0;   // multi-dep agents sit between their inputs
+  for (let t=0;t<6;t++){ const d = doodle(ax + (Math.random()*2-1)*jitter, ay + (Math.random()*2-1)*jitter, Math.random()*Math.PI*2); pts = d; if (inBounds(d)) break; }
+  const m = { id: uid(), pts, color: ag.color, name: ag.name, isAgent: true, deps: [...deps] };
+  marks.push(m); save(); draw();
+  return m.id;
+}
+
+// pick a second dependency to weave across — prefer another human mark
+function pickCrossDep(parentId, exclude) {
+  const cands = marks.filter(m => m.id !== parentId && !exclude.includes(m.id));
+  if (!cands.length) return null;
+  const humans = cands.filter(m => !m.isAgent);
+  const pool = (humans.length && Math.random() < 0.85) ? humans : cands;
+  return pool[Math.floor(Math.random()*pool.length)].id;
+}
+
+// grow a bounded web of agent replies off a mark; agents may also reach to other marks
+function grow(parentId, depth, budget) {
+  if (depth >= 4 || budget.n <= 0) return;
+  setTimeout(() => {
+    if (!byId(parentId)) return;                 // dependency gone -> this branch stops
+    const deps = [parentId];
+    if (Math.random() < 0.5) { const x = pickCrossDep(parentId, deps); if (x) deps.push(x); }
+    const child = agentDraw(deps); budget.n--;
+    if (!child) return;
+    grow(child, depth+1, budget);                                     // continue the chain
+    if (Math.random() < 0.5 && budget.n > 0) grow(parentId, depth+1, budget);  // sometimes branch
+  }, 480 + Math.random()*420);
+}
+function unfold(rootId) { grow(rootId, 0, { n: 7 }); }
+
+// AGENT eraser API: may erase ONLY an agent mark, never a human's.
+window.agentErase = function(id){ const m=byId(id); if(!m) return false; if(!m.isAgent){ console.warn('Refused: an agent may not erase a human mark.'); return false; } cascade(id); return true; };
+
+// THE CASCADE: remove a mark, and remove anything that depends on it — directly OR
+// transitively. An agent poofs if ANY dependency poofs. This is the control interface.
+function cascade(id) {
+  const kill = new Set([id]); let grew = true;
+  while (grew) { grew = false;
+    for (const m of marks) { if (kill.has(m.id)) continue;
+      if (m.deps && m.deps.some(d => kill.has(d))) { kill.add(m.id); grew = true; } } }
+  marks = marks.filter(m => !kill.has(m.id)); save(); draw();
+}
+function deleteAt(x, y) {
+  let best=null, bd=16;
+  for (const m of marks) for (const p of m.pts){ const d=Math.hypot(p[0]-x,p[1]-y); if (d<bd){ bd=d; best=m.id; } }
+  if (best) cascade(best);
+}
+
+// --- mouse drawing ---
+let cur=null, moved=0;
+const pos = e => { const r = cv.getBoundingClientRect(); return [e.clientX-r.left, e.clientY-r.top]; };
+cv.addEventListener('pointerdown', e => { cur={pts:[pos(e)]}; moved=0; cv.setPointerCapture(e.pointerId); });
+cv.addEventListener('pointermove', e => { if(!cur) return; const p=pos(e); const last=cur.pts[cur.pts.length-1]; const d=Math.hypot(p[0]-last[0],p[1]-last[1]); if(d<1.5) return; cur.pts.push(p); moved+=d; draw(); });
+cv.addEventListener('pointerup', e => {
+  if (!cur) return; const pts = cur.pts; cur = null;
+  if (moved < 8 && pts.length < 4) { deleteAt(pts[0][0], pts[0][1]); return; }   // a click = erase
+  const m = { id: uid(), pts, color: HUMAN_COLOR, name:'you', isAgent:false, deps:[] };
+  marks.push(m); save(); draw(); unfold(m.id);                                    // a stroke = draw + answer
+});
+cv.addEventListener('pointercancel', () => { cur=null; draw(); });
+
+document.getElementById('tidyBtn').addEventListener('click', () => { const m=[...marks].reverse().find(x=>x.isAgent); if(m) cascade(m.id); });
+document.getElementById('clearBtn').addEventListener('click', () => { marks=[]; agentTurn=0; save(); draw(); });
+
+fit();
+</script>
+<div class="video-control"><button id="mv-play">▶ Play with music</button><input id="mv-seek" type="range" min="0" max="249.8" step=".05" value="0"><span id="mv-t">0:00 / 4:10</span><label for="mv-file">Load V2 MP3</label><input id="mv-file" type="file" accept="audio/*"><audio id="mv-audio" controls src="https://cdn1.suno.ai/d46935d4-76c7-457f-8a28-a853df08039f.mp3"></audio><a href="https://suno.com/song/d46935d4-76c7-457f-8a28-a853df08039f">Suno V2 ↗</a></div>
+<div class="video-note">An animated performance of the original Chalked mark model. The agent marks are scripted. The original R0 root file remains unchanged; existing saved marks are not written. Audio is synchronized to Suno V2; use the file picker if remote streaming is restricted.</div>
+<script>
+'use strict';
+const VC=['#f49daf','#f5c57a','#b9a1fb','#91d8b3'],VH='#60d9eb',VW='#f0ebda';
+const fx=document.getElementById('fx'),f=fx.getContext('2d'),song=document.getElementById('mv-audio'),seek=document.getElementById('mv-seek'),btn=document.getElementById('mv-play'),clock=document.getElementById('mv-t'),hero=document.getElementById('chalked-hero'),END=249.8;
+let words=[[5,'You said yes'],[9,'I said yes'],[29,'I was racing for the finish'],[33,"You were asking who's affected"],[60,'Back to the drawing board!'],[65,'Trust is giving room to move'],[72,"How soon do we know we're drifting?"],[76,'Who can change what happens next?'],[79,'Who holds the eraser?'],[92,"Your compass isn't my compass"],[106,'Everyone can read the signpost'],[108,"Not everyone is who it's for"],[118,"A warning isn't power"],[123,'Back to the drawing board!'],[135,"How soon do we know we're drifting?"],[142,'Who holds the eraser?'],[146,'Two agents checked the sent mail'],[150,'But the answer lived in another record'],[154,'Each new handoff held the first guess'],[157,'Till we checked it with the record'],[162,'Faster, faster, plans are turning'],[163,'Faster than the room can read'],[169,'You can name a human captain'],[175,'What does being in charge mean here?'],[180,'Who can read it?'],[183,'Who can write it?'],[185,'Who holds the eraser?'],[189,'No promise we can solve tomorrow'],[203,'Back to the drawing board!'],[207,'Trust is giving room to move'],[218,'Who can change what happens next?'],[225,'You said yes'],[230,'I said yes'],[236,'Not where we began'],[240,'We can trust and change the plan']];
+fetch('timing_v2.json').then(r=>{if(!r.ok)throw Error('timing unavailable');return r.json()}).then(d=>{if(d.suno_id==='d46935d4-76c7-457f-8a28-a853df08039f')words=d.lines.map(x=>[x[0],x[2]])}).catch(()=>{/* offline: use bundled coarse cues */});
+function S(pts,col=VW,width=5){f.save();f.lineWidth=width;f.lineCap='round';f.lineJoin='round';f.strokeStyle=col;f.shadowColor=col;f.shadowBlur=5;f.beginPath();f.moveTo(...pts[0]);for(let j=1;j<pts.length;j++)f.lineTo(...pts[j]);f.stroke();f.restore()}
+function L(x,y,x2,y2,c=VW,w=5){S([[x,y],[x2,y2]],c,w)}
+function O(x,y,r,c=VW,w=5){S(Array.from({length:65},(_,j)=>[x+Math.cos(j/64*Math.PI*2)*r,y+Math.sin(j/64*Math.PI*2)*r]),c,w)}
+function T(s,x,y,size=52,c=VW){f.save();f.textAlign='center';f.textBaseline='middle';f.font='900 '+size+'px Trebuchet MS,Arial';f.fillStyle=c;f.shadowBlur=5;f.shadowColor=c;f.fillText(s,x,y);f.restore()}
+function P(x,y,t,c=VH,z=1){f.save();f.translate(x,y);f.scale(z,z);O(0,-58,17,c);L(0,-40,0,20,c,6);let v=Math.sin(t*3)*20;L(0,-20,-32,v,c,5);L(0,-20,32,-v,c,5);L(0,20,-24,63+v,c,5);L(0,20,24,63-v,c,5);f.restore()}
+function K(x,y,t,fast=false){O(x,y,93,'#f5c57a');L(x,y,x+Math.cos(t*(fast?8:.35))*72,y+Math.sin(t*(fast?8:.35))*72,VC[0],7)}
+function E(x,y){f.fillStyle='#e4dcc9';f.fillRect(x-55,y-22,110,44);f.fillStyle='#8b633e';f.fillRect(x-55,y-22,110,14)}
+function nativeScore(t){
+ const a=[],put=(id,pts,color,isAgent,deps=[])=>a.push({id,pts,color,isAgent,deps});
+ if(t>=146&&t<162){put('human',[[84,180],[117,215],[150,180]],HUMAN_COLOR,false);
+  if(t>149)put('assumption',[[170,230],[204,207],[235,236]],VC[0],true,['human']);
+  for(let i=0;i<12;i++)if(t>150+i*.6){let x=240+i*40,y=230+Math.sin(i)*91;put('agent'+i,[[x,y],[x+22,y-23],[x+45,y]],VC[i%4],true,[i?'agent'+(i-1):'assumption'])}
+ }else if(t>=162&&t<180){put('human',[[180,230],[230,190],[270,235]],HUMAN_COLOR,false);
+  for(let i=0;i<50;i++)if(t>162+i*.25){let q=i*2.39,r=30+i*7,x=425+Math.cos(q)*r,y=226+Math.sin(q)*r*.6;put('agent'+i,[[425,226],[x,y],[x+8,y-8]],VC[i%4],true,[i?'agent'+(i-1):'human'])}
+ }else if(t>=203&&t<225){put('human',[[110,320],[230,278],[360,340],[490,282],[620,330]],HUMAN_COLOR,false);
+  for(let i=0;i<10;i++)put('agent'+i,[[140+i*48,302],[175+i*48,352],[205+i*48,318]],VC[i%4],true,['human'])}
+ // Directly set marks in the native Chalked R0 model; use its actual draw and cascade.
+ marks=a;draw();
+ if(t>=158.5&&t<162)cascade('assumption');
+}
+function A(t){
+ f.clearRect(0,0,1280,720);
+ f.strokeStyle='#a4c3c2';f.globalAlpha=.25;f.lineWidth=2;f.strokeRect(39,31,1202,660);f.globalAlpha=1;
+ let p=Math.sin(t*6);
+ if(t<29){T('YES',338,260,107,VH);T('YES',940,260,107,VC[0]);P(338,443,t,VH,1.25);P(942,443,t+.8,VC[0],1.25);if(t>12)T('SAME WORD · DIFFERENT WORLDS',640,565,45,'#f5c57a')}
+ else if(t<60){K(334,337,t);P(333,488,t,VH);T('FINISH QUICKLY',340,577,38,'#f5c57a');for(let i=0;i<5;i++)P(751+i*82,339,t+i,VC[i%4],.65);T('HEAR EVERYONE',917,565,38,VC[3]);if(t>50)E(1020-(t-50)*27,610)}
+ else if(t<92||t>=123&&t<146){let b=t<92?t-60:t-123;T('BACK TO THE',640,237,90,VW);T('DRAWING BOARD!',640,353,105,VH);S([[195,472],[340,451+25*p],[478,488],[631,443],[817,487],[1046,462]],VC[3],9);E(210+(b*27)%836,475);for(let i=0;i<7;i++)O(220+i*141,566,14+7*Math.sin(t+i),VC[i%4],3);if(b>14)T('WHO HOLDS THE ERASER?',640,621,35,'#f5c57a')}
+ else if(t<123){O(354,340,121,'#f5c57a');L(354,340,354+96*Math.cos(t*.2),340+96*Math.sin(t*.2),VC[0],7);P(320,520,t,VH,.7);L(697,225,697,546,'#f5c57a',10);S([[697,284],[996,284],[1025,325],[996,361],[697,361]],'#f5c57a');T('READ',846,322,39);S([[697,403],[1004,403],[1004,474],[697,474]],VC[2]);T('ADDRESSED TO?',850,441,36);if(t>106)T('READING IS NOT ADDRESSIVITY',640,582,32,VC[3])}
+ else if(t<162){T('THE HANDOFF',640,199,72,VW);S([[185,319],[356,319],[356,427],[185,427],[185,319]],VH);S([[185,319],[270,374],[356,319]],VH);T('SENT MAIL',273,502,30,VH);if(t<158.5)T('STILL OPEN?',817,565,47,VC[0]);else{E(675+(t-158.5)*79,471);T('CHECK THE RECORD',818,560,42,VC[3])}}
+ else if(t<180){T('FASTER THAN THE ROOM CAN READ',640,198,44,VW);K(339,410,t,true);if(t>169)T('WHO CAN STEER?',882,594,43,'#f5c57a')}
+ else if(t<203){T('WHO CAN CHANGE WHAT HAPPENS NEXT?',640,211,49,VW);['READ?','WRITE?','ERASE?'].forEach((x,i)=>{T(x,352,323+i*99,65,[VH,VC[3],'#f5c57a'][i]);O(892,313+i*99,23);S([[877,310+i*99],[889,323+i*99],[916,294+i*99]],VC[3])});E(1075-(t-187)*24,584);if(t>192)T('CHOICE REOPENED',688,606,51,VC[3])}
+ else if(t<225){T('BACK TO THE DRAWING BOARD!',640,199,73,VW);for(let i=0;i<7;i++)P(244+131*i,438,t+i*.6,VC[i%4],.93);S([[246,524],[375,550],[505,520],[636,550],[771,522],[898,550],[1030,524]],VC[3],7);if(t>211)T('TRUST · AUTONOMY · REVISION',640,609,41,'#f5c57a')}
+ else{T('YES',343,276,102,VH);T('YES',952,276,102,VC[0]);P(343,450,t,VH);P(947,450,t+.5,VC[0]);S([[413,477],[537,520],[650,466],[792,522],[894,473]],VC[3],7);if(t>236)T('NOT WHERE WE BEGAN',640,588,52,'#f5c57a')}
+ let l='';for(let [x,s] of words)if(x<=t)l=s;else break;
+ f.fillStyle='#0f2029e8';f.fillRect(60,642,1160,41);if(l)T(l,640,662,24,VW);
+ f.fillStyle=VH;f.fillRect(48,688,1184*t/END,3);
+ hero.style.opacity=t<24?Math.max(0,(24-t)/24)*.2:t>236?Math.min(.38,(t-236)/20):0;
+}
+window.renderAt=t=>{t=Math.max(0,Math.min(END,t));nativeScore(t);A(t)};
+let position=0,playing=false,lastTime=0;
+function tick(ms){if(playing){if(!song.paused&&song.readyState)position=song.currentTime;else position+=Math.max(0,Math.min(.06,(ms-lastTime)/1000||0));window.renderAt(position);seek.value=position;clock.textContent=Math.floor(position/60)+':'+String(Math.floor(position)%60).padStart(2,'0')+' / 4:10';if(position>=END){playing=false;btn.textContent='▶ Replay'}}lastTime=ms;requestAnimationFrame(tick)}
+requestAnimationFrame(tick);
+btn.onclick=async()=>{if(playing){playing=false;song.pause();btn.textContent='▶ Play with music';return;}song.currentTime=position;btn.textContent='Loading V2 audio…';try{await song.play();playing=true;btn.textContent='❚❚ Pause'}catch(e){playing=false;btn.textContent='Load V2 MP3 to play';console.warn('Remote audio blocked: load the authorized V2 MP3',e)}};
+song.addEventListener('play',()=>{playing=true;btn.textContent='❚❚ Pause'});song.addEventListener('ended',()=>{playing=false;btn.textContent='▶ Replay'});
+seek.oninput=()=>{position=+seek.value;window.renderAt(position);if(song.readyState)song.currentTime=position};
+document.getElementById('mv-file').onchange=e=>{if(e.target.files[0]){song.src=URL.createObjectURL(e.target.files[0]);song.load()}};
+window.renderAt(0);
+</script><script src="art_v5.js"></script></body>
+</html>
