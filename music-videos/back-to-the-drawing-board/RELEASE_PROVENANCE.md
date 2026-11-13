@@ -17,6 +17,14 @@
 | Theoretical source | Tiffany (2026), *Signposts of Shared Imagination* | Workshop extended abstract **submitted June 26, 2026**; the source of the signpost, addressivity, eraser/revision and drawing-board/evitability analysis. |
 | Additional creative context | Creator's report of Nov 12 Ikigai Collective discussion | Trust, autonomy and the return to the drawing board were explicitly raised by the creator; exact meeting record not independently retrieved. |
 
+## Archived research document and edition history
+
+The creator-supplied, **non-accepted** (per the creator) extended abstract [*Chalked: An iconography of shared imagination*](Chalked_extended_abstract_2026-07-24.pdf) is preserved as an unchanged, downloadable four-page PDF in this folder. SHA-256: `d716a91d1a7c582ecd52c43369a86913e633c7b59e3c794f5ae777a14a445804`; Git blob SHA-1: `a85a1137283f9af7aa0c69ab37af5a892d86cb14`. Its embedded PDF metadata is dated **July 24, 2026**. Its research status is *extended abstract / position / work in progress*, not an accepted or empirically validated result. An independent rejection decision for that PDF has not been retrieved.
+
+**Do not silently substitute this July 24 edition for the June 26 AGI-26 submission.** The dated submission receipt identifies a different upload name and the contemporaneous **`Signposts of Shared Imagination`** manuscript has a different SHA-256; it is not posted here. [SOURCE_PEDIGREE.md](SOURCE_PEDIGREE.md) records the original June26 submission relationship, edition differences, David's timestamps, and exact archived-paper section/page anchors.
+
+**Observed local media checksums:** [MEDIA_RECEIPT.json](MEDIA_RECEIPT.json) contains SHA-256, byte sizes, durations and ffprobe stream metadata for the user-provided V2 MP3 and local V7 sound-on compact/full exports. These files are *not* committed in Git and receipt of them does not establish a clean-machine reproduction of V7 from the current native R0 branch.
+
 ## Distinguishing the three clocks
 
 - **David's video timestamps:** offsets into the original YouTube discourse (about seven minutes). Where provided, these come from the transcript supplied for the music-adaptation task.
