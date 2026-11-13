@@ -12,7 +12,7 @@ The video has no claims of live artificial agent inference: all downstream marks
 
 ## Watch
 
-Open `index.html` in a browser, or after merging visit the repository's GitHub Pages path `/music-videos/back-to-the-drawing-board/`. Press **Play with music**. The page attempts to stream Suno's Version 2 MP3 and uses its audio clock to drive the animation. If streaming is unavailable, select a legitimate downloaded V2 MP3 using **Load V2 MP3**. No extra generation call is required.
+Open `index.html` in a browser, or after merging visit the repository's GitHub Pages path `/music-videos/back-to-the-drawing-board/`. Press **Play with music**. The page attempts to stream Suno's Version 2 MP3 and uses its audio clock to drive the animation. The 94 line cues (and all 568 aligned words, including success flags) are preserved in `timing_v2.json` directly from Suno's Version 2 alignment; the hosted page loads the precise lines and falls back to bundled coarse cues when offline. If streaming is unavailable, select a legitimate downloaded V2 MP3 using **Load V2 MP3**. No extra generation call is required.
 
 > The code refers to Suno's public CDN source; it does not commit the music file to a public repository. A Suno download credit was used to request the owner's authorized Version 2 MP3. The paid download URL is time-limited.
 
