@@ -85,5 +85,21 @@
       "date": "2026-11-12",
       "verification": "exact contribution not independently retrieved"
     }
-  ]
+  ],
+  "archived_workshop_abstract": {
+    "path": "Chalked_extended_abstract_2026-07-24.pdf",
+    "sha256": "d716a91d1a7c582ecd52c43369a86913e633c7b59e3c794f5ae777a14a445804",
+    "git_blob_sha1": "a85a1137283f9af7aa0c69ab37af5a892d86cb14",
+    "pdf_metadata_creation_date": "2026-07-24",
+    "pages": 4,
+    "bytes": 132510,
+    "creator_reported_acceptance_status": "not accepted",
+    "independent_rejection_record_found": false,
+    "distinct_from_june26_submission": true,
+    "submission_variant_id": "Signposts of Shared Imagination",
+    "verification": "Exact uploaded binary hash agrees with Git blob sha1 and GitHub file retrieval."
+  },
+  "local_media_receipt": "MEDIA_RECEIPT.json",
+  "source_pedigree_guide": "SOURCE_PEDIGREE.md",
+  "historical_submission_differentiation": "June 26 Signposts abstract documented separately; July 24 Chalked paper in repository must not be presented as submitted on June 26."
 }
