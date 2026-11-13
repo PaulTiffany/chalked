@@ -14,6 +14,9 @@
 
 **Primary external intellectual source:** [David's realignment-loop discussion on YouTube](https://www.youtube.com/watch?v=n9_EsXZAQoQ). Creative adaptation is based on a user-provided timed transcript. No speaker collaboration, approval or endorsement is asserted; no source-video footage is part of the documented animation pipeline.
 
+
+**Archived creator-supplied research reference:** [*Chalked: An iconography of shared imagination* (July 24, 2026)](Chalked_extended_abstract_2026-07-24.pdf), the actual four-page PDF attached by the creator and described by them as **not accepted**. The document describes itself as an extended abstract / position / work in progress. It is **not** the exact June 26 submission binary, whose title was *Signposts of Shared Imagination*; see [source editions and verification](SOURCE_PEDIGREE.md). A rejection notice has not been independently retrieved. The PDF is preserved byte-identically, with hash in [the media/source ledger](SOURCE_PEDIGREE.md).
+
 **Secondary theoretical source:** Paul C. Tiffany III, *Signposts of Shared Imagination: Permissions, Addressivity, and the Access–Phenomenal Boundary*, extended abstract submitted June 26, 2026, AGI-26 Artificial Phenomenology Track (the submitted work also used the working talk title *Chalked*). Its proposals are the creator's theoretical positions, **not** independently certified empirical findings.
 
 **Additional creator context:** Paul reported raising the principle of returning to the drawing board in the Ikigai Collective discussion on November 12, 2026, specifically its relationship to trust and autonomy. This is creator-reported context; no independently archived meeting transcript is asserted.
