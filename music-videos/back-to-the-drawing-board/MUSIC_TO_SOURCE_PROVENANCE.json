@@ -15,11 +15,30 @@
       "timestamp_source": "User-provided timed transcript, not independently verified verbatim against video; ranges approximate."
     },
     "chalked": {
-      "creator": "Paul C. Tiffany III",
-      "title": "Signposts of Shared Imagination: Permissions, Addressivity, and the Access–Phenomenal Boundary",
-      "kind": "AGI-26 Artificial Phenomenology Track extended abstract",
-      "submitted": "2026-06-26",
-      "status": "Position / work in progress; not independent proof of phenomenal consciousness"
+      "creator": "Paul Carver Tiffany III",
+      "archived_pdf": "Chalked_extended_abstract_2026-07-24.pdf",
+      "title": "Chalked: An iconography of shared imagination: permissions, addressivity, and the access–phenomenal boundary",
+      "dated": "2026-07-24",
+      "format": "Four-page extended abstract, position / work in progress",
+      "creator_reported_status": "not accepted",
+      "rejection_notice_independently_verified": false,
+      "sha256": "d716a91d1a7c582ecd52c43369a86913e633c7b59e3c794f5ae777a14a445804",
+      "actual_2026_06_26_submission": {
+        "title": "Signposts of Shared Imagination: Permissions, addressivity, and the access–phenomenal boundary",
+        "receipt_date": "2026-06-26",
+        "uploaded_filename_from_form": "Tiffany_abstract - Paul Tiffany.pdf",
+        "sha256_of_retained_contemporaneous_copy": "748f3c8c480bfeccedf7cb2feda3b53061b6bb2c55a637eb37a57098fd0bf212",
+        "binary_in_this_public_folder": false,
+        "edition_warning": "The July 24 Chalked revision is not the June 26 submission file."
+      },
+      "page_anchors": {
+        "§1": "pp. 1–2, access schema, signposts, erase rights",
+        "§2": "p. 2, access versus addressee",
+        "§3": "pp. 2–3, imaginary-axis modeling proposal",
+        "§4": "p. 3, governor, drawing board, evitability, forum mandate",
+        "§5": "p. 3, break-point and reintegration proposal",
+        "§6": "p. 4, machine context permissions and unsettled phenomenality"
+      }
     },
     "ikigai": {
       "label": "Ikigai Collective contribution reported by creator",
@@ -32,7 +51,9 @@
     "Suno times refer to the recorded song, not to David's talk.",
     "Ranges are creative correspondences, not quotes or direct endorsements. Chalked ideas are distinguished from David's discourse.",
     "The line ledger scene_pedigree_v5.csv contains 85 primary sequential windows; timing_v2.json retains all 94 machine-detected line cues and 568 word entries.",
-    "The English/Italian SALE visual is the video maker's invented illustrative example, not something attributed to David."
+    "The English/Italian SALE visual is the video maker's invented illustrative example, not something attributed to David.",
+    "Creator-supplied PDF is dated July 24 and described as non-accepted; an independent rejection notice is not in hand. It is not the June 26 submission binary.",
+    "Archived PDF SHA-256 d716a91d1a7c582ecd52c43369a86913e633c7b59e3c794f5ae777a14a445804; see SOURCE_PEDIGREE.md for section-level citations."
   ],
   "links": [
     {
@@ -42,7 +63,8 @@
       "source": "David",
       "source_time": "0:04–1:04",
       "source_theme": "Same instructions or agreement can mask different priorities.",
-      "relation": "Adapted opening situation; the globe and English SALE/Italian sale imagery are original artistic examples."
+      "relation": "Adapted opening situation; the globe and English SALE/Italian sale imagery are original artistic examples.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=4s"
     },
     {
       "song_start_s": 28.97,
@@ -51,7 +73,8 @@
       "source": "David",
       "source_time": "0:38–1:04",
       "source_theme": "Speed/efficiency compared with consultation and who bears consequences.",
-      "relation": "Close conceptual paraphrase in the song; no direct quote asserted."
+      "relation": "Close conceptual paraphrase in the song; no direct quote asserted.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=38s"
     },
     {
       "song_start_s": 43.17,
@@ -60,7 +83,8 @@
       "source": "David",
       "source_time": "0:58–1:04",
       "source_theme": "Genuine priorities disagreement rather than simple misunderstanding.",
-      "relation": "Artistically rephrased distinction."
+      "relation": "Artistically rephrased distinction.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=58s"
     },
     {
       "song_start_s": 60.06,
@@ -69,7 +93,8 @@
       "source": "Chalked §4 + Ikigai creator report",
       "source_time": null,
       "source_theme": "Reopen deliberation and retain genuine delegated autonomy while making revisions possible.",
-      "relation": "Creator's theoretical synthesis; not presented as David's statement."
+      "relation": "Creator's theoretical synthesis; not presented as David's statement.",
+      "archived_pdf_anchor": "§4 p. 3"
     },
     {
       "song_start_s": 71.8,
@@ -78,7 +103,9 @@
       "source": "David + Chalked §§1,4",
       "source_time": "2:17–3:23",
       "source_theme": "Detection latency and meaningful intervention authority; erase/revision rights.",
-      "relation": "Two distinct intellectual sources brought into dialogue."
+      "relation": "Two distinct intellectual sources brought into dialogue.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=137s",
+      "archived_pdf_anchor": "§1 pp. 1–2; §4 p. 3"
     },
     {
       "song_start_s": 91.73,
@@ -87,7 +114,8 @@
       "source": "David",
       "source_time": "1:11–1:44",
       "source_theme": "Partially overlapping values can still permit bounded cooperation.",
-      "relation": "Original metaphor developed from the discussion."
+      "relation": "Original metaphor developed from the discussion.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=71s"
     },
     {
       "song_start_s": 105.95,
@@ -96,7 +124,8 @@
       "source": "Chalked §§1–2",
       "source_time": null,
       "source_theme": "Read permission and addressivity do not coincide; reader is not always intended addressee.",
-      "relation": "Directly grounded in creator's submitted theoretical framework."
+      "relation": "Directly grounded in creator's submitted theoretical framework.",
+      "archived_pdf_anchor": "§2 p. 2"
     },
     {
       "song_start_s": 113.79,
@@ -105,7 +134,9 @@
       "source": "David + Chalked §4",
       "source_time": "2:35–3:23",
       "source_theme": "The plan/goal can change; alerting does not grant standing to intervene.",
-      "relation": "Integrated paraphrase."
+      "relation": "Integrated paraphrase.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=155s",
+      "archived_pdf_anchor": "§4 p. 3"
     },
     {
       "song_start_s": 122.86,
@@ -114,7 +145,9 @@
       "source": "David + Chalked §4 + Ikigai creator report",
       "source_time": "2:25–3:23",
       "source_theme": "Realignment is a social feedback/governance loop; return to the forum and restore evitability.",
-      "relation": "Synthesized chorus, not endorsement."
+      "relation": "Synthesized chorus, not endorsement.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=145s",
+      "archived_pdf_anchor": "§4 p. 3"
     },
     {
       "song_start_s": 146.37,
@@ -123,7 +156,8 @@
       "source": "David",
       "source_time": "3:24–4:27",
       "source_theme": "A mistaken open-decision assumption arose from checking sent mail while overlooking another record; error propagated into a morning plan.",
-      "relation": "Retains recognizable anecdote; animation elaborates it with archive and handoff sketches."
+      "relation": "Retains recognizable anecdote; animation elaborates it with archive and handoff sketches.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=204s"
     },
     {
       "song_start_s": 161.71,
@@ -132,7 +166,9 @@
       "source": "David + Chalked §4",
       "source_time": "4:43–5:39",
       "source_theme": "AIs may revise and act faster than humans can evaluate; a nominal supervisor may have little actionable control; board as communication-rate governor.",
-      "relation": "David supplies speed-asymmetry challenge; Chalked supplies governor metaphor."
+      "relation": "David supplies speed-asymmetry challenge; Chalked supplies governor metaphor.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=283s",
+      "archived_pdf_anchor": "§4 p. 3"
     },
     {
       "song_start_s": 174.63,
@@ -141,7 +177,9 @@
       "source": "David + Chalked §§1,2,4",
       "source_time": "2:53–3:23; 5:02–5:39",
       "source_theme": "Authority to intervene vs read/write/erase permissions and legitimate forum.",
-      "relation": "Original call-and-response synthesis."
+      "relation": "Original call-and-response synthesis.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=173s",
+      "archived_pdf_anchor": "§1 pp. 1–2; §4 p. 3"
     },
     {
       "song_start_s": 188.66,
@@ -150,7 +188,8 @@
       "source": "David",
       "source_time": "5:48–6:45",
       "source_theme": "Study correction capabilities now, without asserting this solves future superintelligence alignment.",
-      "relation": "Explicitly bounded conclusion."
+      "relation": "Explicitly bounded conclusion.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=348s"
     },
     {
       "song_start_s": 202.6,
@@ -159,7 +198,9 @@
       "source": "Chalked §4 + Ikigai creator report + David conclusion",
       "source_time": "6:45–7:09",
       "source_theme": "Retain meaningful agency by reopening decisions while alternatives remain; preserve cooperation through revision.",
-      "relation": "Creator's normative response to David."
+      "relation": "Creator's normative response to David.",
+      "source_deep_link": "https://www.youtube.com/watch?v=n9_EsXZAQoQ&t=405s",
+      "archived_pdf_anchor": "§4 p. 3"
     },
     {
       "song_start_s": 225.52,
@@ -168,7 +209,8 @@
       "source": "Original song reprise + Chalked §4",
       "source_time": null,
       "source_theme": "Return to a similar surface with altered choices and preserved trust.",
-      "relation": "Original lyrical resolution, not quoted from source."
+      "relation": "Original lyrical resolution, not quoted from source.",
+      "archived_pdf_anchor": "§4 p. 3"
     }
   ]
 }
