@@ -44,3 +44,13 @@ The video renderer requires an authorized local audio file and **will not silent
 **Secondary theoretical source:** Tiffany, P. C. III (2026), *Signposts of Shared Imagination: Permissions, Addressivity, and the Access–Phenomenal Boundary*. AGI-26 Artificial Phenomenology Track, workshop abstract submitted June 26, 2026.
 
 The video's synthesis does not imply that David endorsed Chalked, that Chalked's phenomenological proposals were independently verified, or that realignment loops solve superintelligence alignment.
+
+## V3: illustrated, lyric-directed music-video score (November 2026)
+
+`art_v3.js` replaces the initial simple stick-figure score with 22 continuously animated lyric-dependent chalk compositions. Assets include detailed face portraits and speech balloons, a racing car/finish flag versus a deliberative roundtable, diverging road maps, a pen and magnifying glass, a physical easel and drawing hand, rotating ornamental rosette, two compasses, an open book, addressed signposts and an opening door, sunrise city, lighthouse, robots and a filing cabinet with the missing decision, a chain of dependencies, a rapid conveyor-belt plan factory, a ship and separate helm, rights icons and a collaborative city/garden mural.
+
+The **existing native Chalked R0 mark model and dependency cascade remain active** underneath this illustration score via `nativeScore(t)`; V3 changes visual choreography, not the revision/permission contract. The root Chalked app is untouched. The original repo's `../../assets/chalked-hero.png` is shown at the opening and closing.
+
+`render.py` explicitly loads `art_v3.js` and the original Chalked hero into its headless browser context. The music is NOT committed publicly; supply your authorized Suno V2 MP3 to the renderer, or use the hosted stream / browser file picker. An audio-muxed local V3 illustrative MP4 has been generated from the user-provided V2 recording (249.8 seconds, 960×540), but this exact R0-backed branch still requires a browser/export qualification run before merging.
+
+**Narrative design:** disagreement without misunderstanding → the right to revisit a shared plan → asymmetric read/write/erase permissions → an unchecked AI handoff → correction, speed limits, and renewed consent. The scenes are symbolic artistic interpretations, not claims of measured autonomous inference.
