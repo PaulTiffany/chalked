@@ -239,5 +239,5 @@ song.addEventListener('play',()=>{playing=true;btn.textContent='❚❚ Pause'});
 seek.oninput=()=>{position=+seek.value;window.renderAt(position);if(song.readyState)song.currentTime=position};
 document.getElementById('mv-file').onchange=e=>{if(e.target.files[0]){song.src=URL.createObjectURL(e.target.files[0]);song.load()}};
 window.renderAt(0);
-</script></body>
+</script><script src="art_v3.js"></script></body>
 </html>
